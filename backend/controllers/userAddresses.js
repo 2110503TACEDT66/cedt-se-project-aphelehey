@@ -21,7 +21,7 @@ exports.getAddresses = async (req,res,next) => {
         //non-admin will only see their own address
         try {
 
-            query = await UserAddress.find({user:req.user.id});
+            query = await UserAddress.findOne({user:req.user.id});
 
         } catch (error) {
             console.log(error);
@@ -43,7 +43,7 @@ exports.postAddress = async (req,res,next) => {
     const userId = (req.user.role == "admin") ? req.body.user : req.user.id //if adder is admin get userID from body
 
     try{
-        query = await UserAddress.find({user:userId});
+        query = await UserAddress.findOne({user:userId});
     }catch(error){
         return res.status(500).json("Finding UserAddress Error")
     }
@@ -76,7 +76,7 @@ exports.updateAddress = async (req,res,next) => {
     const userId = (req.user.role == "admin") ? req.body.user : req.user.id //if adder is admin get userID from body
 
     try{
-        query = await UserAddress.find({user:userId});
+        query = await UserAddress.findOne({user:userId});
     }catch(error){
         return res.status(500).json("Finding UserAddress Error")
     }
@@ -110,7 +110,7 @@ exports.deleteAddress = async (req,res,next) => {
     const userId = (req.user.role == "admin") ? req.body.user : req.user.id //if adder is admin get userID from body
 
     try{
-        query = await UserAddress.find({user:userId});
+        query = await UserAddress.findOne({user:userId});
     }catch(error){
         return res.status(500).json("Finding UserAddress Error")
     }
