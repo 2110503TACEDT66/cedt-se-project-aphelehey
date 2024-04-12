@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const UserAddressSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.ObjectID,
+        type: mongoose.Schema.ObjectId,
         required: [true, 'Please add a name'],
         unique: true,
     },
