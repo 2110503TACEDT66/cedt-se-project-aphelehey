@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
         required: true
     },
     food: {
@@ -17,6 +16,20 @@ const OrderSchema = new mongoose.Schema({
     payment: {
         type: Boolean,
         required: true
+    },
+    location: {
+        type: {
+            address: String,
+            district: String,
+            province: String,
+            postalcode: String,
+            region: String
+        },
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 
