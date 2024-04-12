@@ -4,9 +4,7 @@ const { getAddresses, postAddress, updateAddress, deleteAddress } = require('../
 
 const router = express.Router({ mergeParams: true })
 
-const { protect} = require('../middleware/auth')
+const { protect } = require('../middleware/auth')
 
-router.route('/').get(protect, getAddresses).post(protect, postAddress);
-router.route('/:id').put(protect, updateAddress).delete(protect, deleteAddress)
-
+router.route('/').get(protect, getAddresses).post(protect, postAddress).put(protect, updateAddress).delete(protect, deleteAddress);
 module.exports = router;
