@@ -19,6 +19,7 @@ const restaurants = require('./routes/restaurants.js');
 const auth = require('./routes/auth.js');
 const reservations = require('./routes/reservations.js')
 const menus = require('./routes/menus.js');
+const userAddresses = require('./routes/userAddresses.js')
 
 const limiter = rateLimit({
     windowsMs: 10 * 60 * 1000,
@@ -41,11 +42,12 @@ app.use('/api/v1/restaurants', restaurants);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/reservations', reservations);
 app.use('/api/v1/menus', menus);
+app.use('/api/v1/userAddresses', userAddresses);
 
 
 
 const PORT = process.env.PORT || 5000;
-const server = app.listen(PORT, console.log('Server running in ', process.env.NODE_ENV, ' mode on port ', 'http://localhost:'+ PORT));
+const server = app.listen(PORT, console.log('Server running in ', process.env.NODE_ENV, ' mode on port ', 'http://localhost:' + PORT));
 
 process.on('unhandledRejection', (err, promise) => {
     console.log(`Error: ${err.message}`);
