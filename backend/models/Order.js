@@ -10,7 +10,7 @@ const OrderSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: int,
+        type: Number,
         required: true
     },
     payment: {
