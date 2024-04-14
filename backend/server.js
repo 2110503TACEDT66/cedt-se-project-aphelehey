@@ -19,6 +19,7 @@ const restaurants = require('./routes/restaurants.js');
 const auth = require('./routes/auth.js');
 const reservations = require('./routes/reservations.js')
 const menus = require('./routes/menus.js');
+const transaction = require('./routes/transactions.js')
 
 const limiter = rateLimit({
     windowsMs: 10 * 60 * 1000,
@@ -41,7 +42,7 @@ app.use('/api/v1/restaurants', restaurants);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/reservations', reservations);
 app.use('/api/v1/menus', menus);
-
+app.use('/api/v1/transactions',transaction)
 
 
 const PORT = process.env.PORT || 5000;
