@@ -1,3 +1,4 @@
+'use server'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -5,8 +6,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import getPaymentRecords from 'libs/getPaymentRecords';
+import { getServerSession } from 'next-auth';
 
-export default function Payment() {
+export default async function Payment() {
+
+    const session = await getServerSession()
+    const token = session?.user.token
+    let shops
+    if (token) {
+        shops = await getPaymentRecords(token)
+    } else {
+        alert("You need to log in first")
+        shops={}
+    }
     return (
         <main>
             <div className="text-white text-4xl my-10 mx-20">
@@ -24,6 +37,7 @@ export default function Payment() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
+                            {/**to be implemented */}
                         </TableBody>
                     </Table>
                 </TableContainer>
