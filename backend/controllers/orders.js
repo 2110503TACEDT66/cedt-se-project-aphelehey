@@ -82,8 +82,11 @@ exports.addOrder = async (req, res, next) => {
     }
 
     console.log(req.body);
-
-    req.body.user = req.user.id;
+    
+    if( req.user.role !== "admin" || !req.body.user){
+      req.body.user = req.user.id;
+    }
+    
 
     // const existedOrders = await Order.find({ user: req.user.id });
 
