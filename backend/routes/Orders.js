@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getOrders, getOrder, addOrder, updateOrder, deleteOrder } = require('../controllers/Orders')
+const { getOrders, getOrder, addOrder, updateOrder, deleteOrder } = require('../controllers/orders')
 
 const router = express.Router({ mergeParams: true });
 
