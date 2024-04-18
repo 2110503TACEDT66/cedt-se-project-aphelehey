@@ -59,7 +59,7 @@ export interface ReservationJson {
   data: ReservationItem[];
 }
 
-export interface location {
+export interface locationItem {
   address: string;
   district: string;
   province: string;
@@ -68,13 +68,21 @@ export interface location {
   _id: string;
 }
 
+export interface restaurantItem {
+  _id: string;
+  name: string;
+  id: string;
+}
+
 export interface paymentItem {
   _id: string;
   user: string;
   food: string[];
-  price: string;
+  price: number;
   payment: boolean;
-  location: location;
+  location: locationItem;
+  restaurant: restaurantItem;
   createdAt: string;
-  name:string;
+  __v: number;
 }
+
