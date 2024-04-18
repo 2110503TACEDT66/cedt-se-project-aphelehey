@@ -19,8 +19,10 @@ exports.checkout = async (req, res, next) => {
           },
         ],
         mode: 'payment',
-        success_url: `${process.env.FRONTEND_URL}/success.html?id=${orderId}`,
-        cancel_url: `${process.env.FRONTEND_URL}/cancel.html`,
+        //url to success page
+        success_url: `${process.env.FRONTEND_URL}/payment/successful`,
+        //url to fail page
+        cancel_url: `${process.env.FRONTEND_URL}/payment/fail`,
       });
     
       const orderData = {
