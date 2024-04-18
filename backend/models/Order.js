@@ -24,8 +24,11 @@ const OrderSchema = new mongoose.Schema({
             province: String,
             postalcode: String,
             region: String
-        },
-        required: true
+        }
+    },
+    restaurant: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Restaurant',
     },
     createdAt: {
         type: Date,

@@ -59,11 +59,22 @@ export interface ReservationJson {
   data: ReservationItem[];
 }
 
-export interface PaymentItem {
-  _id: number;
-  user: boolean;
+export interface location {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+  _id: string;
+}
+
+export interface paymentItem {
+  _id: string;
+  user: string;
   food: string[];
-  price: number;
+  price: string;
   payment: boolean;
-  restaurant: 
+  location: location;
+  createdAt: string;
+  name:string;
 }
