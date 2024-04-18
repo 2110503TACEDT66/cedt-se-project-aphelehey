@@ -1,20 +1,18 @@
 const mongoose = require('mongoose');
 
 const MenuSchema = new mongoose.Schema({
-    name : {
-        type : String,
-        required : [true,"Please add a name"]
+    food: {
+        type: String,
+        required: true
     },
-    food : {
-        type : Array,
-        required : [true,"Please add food list"]
-
+    price: {
+        type: String,
+        required: true
     },
-    restaurant:{
-        type:mongoose.Schema.ObjectId,
-        ref:'Restaurant',
-        required:true
+    picture: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = mongoose.model('Menu',MenuSchema);
+module.exports = mongoose.model('Menu', MenuSchema);
