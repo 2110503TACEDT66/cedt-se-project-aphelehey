@@ -27,7 +27,8 @@ const OrderSchema = new mongoose.Schema({
         }
     },
     restaurant: {
-        type: String
+        type: mongoose.Schema.ObjectId,
+        ref: 'Restaurant',
     },
     createdAt: {
         type: Date,
