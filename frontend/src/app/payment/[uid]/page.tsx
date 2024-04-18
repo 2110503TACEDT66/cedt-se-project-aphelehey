@@ -11,15 +11,16 @@ import { getServerSession } from 'next-auth';
 
 export default async function Payment() {
 
-    const session = await getServerSession()
-    const token = session?.user.token
-    let shops
-    if (token) {
-        shops = await getPaymentRecords(token)
-    } else {
-        alert("You need to log in first")
-        shops={}
-    }
+    // const session = await getServerSession()
+    // const token = session?.user.token
+    // let shops
+    // if (token) {
+    //     shops = await getPaymentRecords(token)
+    // } else {
+    //     alert("You need to log in first")
+    //     shops={}
+    // }
+
     return (
         <main>
             <div className="text-white text-4xl my-10 mx-20">
