@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import getPaymentRecords from 'libs/getPaymentRecords';
 import { getServerSession } from 'next-auth';
+import { paymentItem } from 'interfaces';
 
 export default async function Payment() {
 
@@ -37,7 +38,15 @@ export default async function Payment() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {/**to be implemented */}
+                            {
+                                shops.map((payment:paymentItem) => (
+                                <TableRow>
+                                    <TableCell align="right">{payment._id}</TableCell>
+                                    <TableCell align="right">{payment.createdAt}</TableCell>
+                                    <TableCell align="right">{payment.price}</TableCell>
+                                    <TableCell align="right">{payment.name}</TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>

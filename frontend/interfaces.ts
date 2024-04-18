@@ -58,3 +58,23 @@ export interface ReservationJson {
   pagination: Object;
   data: ReservationItem[];
 }
+
+export interface location {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+  _id: string;
+}
+
+export interface paymentItem {
+  _id: string;
+  user: string;
+  food: string[];
+  price: string;
+  payment: boolean;
+  location: location;
+  createdAt: string;
+  name:string;
+}
