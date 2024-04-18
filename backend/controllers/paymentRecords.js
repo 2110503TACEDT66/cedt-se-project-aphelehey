@@ -3,10 +3,16 @@ const PaymentRecord = require("../models/Order")
 exports.getPaymentRecords = async (req, res, next) => {
     let query;
     if (req.user.role !== "admin") {
-        query = PaymentRecord.find({ user: req.user.id }).sort({ createdAt: -1 })
+        query = PaymentRecord.find({ user: req.user.id, payment: true }).sort({ createdAt: -1 }).populate({
+            path: "restaurant",
+            select: "name"
+        });
     }
     else {
-        query = PaymentRecord.find({}).sort({ createdAt: -1 })
+        query = PaymentRecord.find({ payment: true }).sort({ createdAt: -1 }).populate({
+            path: "restaurant",
+            select: "name"
+        });
     }
     try {
         const paymentRecords = await query;
