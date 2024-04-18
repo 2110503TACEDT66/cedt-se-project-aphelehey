@@ -4,9 +4,11 @@ const {getRestaurants,getRestaurant,createRestaurant,updateRestaurant,deleteRest
 const {protect,authorize}=require('../middleware/auth');
 const reservationRouter=require('./reservations');
 const menuRouter = require('./menus');
+const ordersRouter = require('./orders');
 
 router.use('/:restaurantId/reservations/',reservationRouter);
 router.use('/:restaurantId/menus/',menuRouter);
+router.use('/:restaurantId/orders/',ordersRouter);
 
 
 router.route('/').get(getRestaurants).post(protect,authorize('admin'),createRestaurant);
