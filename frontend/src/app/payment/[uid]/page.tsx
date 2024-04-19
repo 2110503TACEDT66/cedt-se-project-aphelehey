@@ -4,11 +4,13 @@ import getPaymentRecords from '@/libs/getPaymentRecords';
 import { getServerSession } from 'next-auth';
 import { paymentItem } from 'interfaces';
 import PaymentRecordRow from "@/components/paymentRecordRow";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function Payment() {
 
-    const session = await getServerSession()
+    const session = await getServerSession(authOptions)
     const token = session?.user.token
+    console.log(token)
     let payments
     if (token) {
         payments = await getPaymentRecords(token)
