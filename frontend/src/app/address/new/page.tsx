@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -37,7 +37,7 @@ const AddressForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ backgroundColor: 'white' }}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
