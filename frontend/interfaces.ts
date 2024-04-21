@@ -49,7 +49,8 @@ export interface MenuItem {
 
 export interface FoodItem {
   name: string
-  img: string
+  price: number
+  picture: string
 }
 
 export interface ReservationJson {
@@ -58,3 +59,24 @@ export interface ReservationJson {
   pagination: Object;
   data: ReservationItem[];
 }
+
+export interface locationItem {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+  _id: string;
+}
+
+export interface OrderItem {
+  _id: string;
+  food: string[];
+  price: number;
+  payment: boolean;
+  location?: locationItem
+  restaurant: string
+  token?: string
+  user?: string
+}
+
