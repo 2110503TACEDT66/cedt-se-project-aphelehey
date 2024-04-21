@@ -58,3 +58,17 @@ export interface ReservationJson {
   pagination: Object;
   data: ReservationItem[];
 }
+
+export interface AddressesItem{
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
+
+export interface UserAddressItem{
+  _id: string;
+  name: string;
+  addresses: AddressesItem;
+}
