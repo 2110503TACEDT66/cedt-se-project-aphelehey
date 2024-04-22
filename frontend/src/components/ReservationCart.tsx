@@ -1,21 +1,27 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { FoodItem, OrderItem} from "interfaces";
+import { FoodItem, OrderItem, locationItem} from "interfaces";
 import styles from '@/components/reservationcart.module.css'
 import Image from "next/image";
 import { addReservation, removeReservation } from "@/redux/features/cartSlice";
-import getMenu from "@/libs/getMenu";
-import getMenus from "@/libs/getMenus";
 import { useAppSelector } from "@/redux/store";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import Link from 'next/link'
+import getUserAddresses from "@/libs/getUserAddresses";
 
 export default function ReservationCart() {
   // const [reservationItems, setReservationItems] = useState<OrderItem[]>([]); // Initialize as empty array
-  const [menuItems, setMenuItems] = useState<FoodItem[]>([])
+  // const [menuItems, setMenuItems] = useState<FoodItem[]>([])
+  const [location, setLocation] = useState<locationItem[]>()
+  const [locationId, setLocationId] = useState<string>()
+  const [selectedLocation, setSelectedLocation] = useState<string>()
   const { data: session } = useSession();
   const token = session?.user.token;
   const user = session?.user._id
   const dispatch = useDispatch();
+
+  console.log(token)
 
   const reservationItems = useAppSelector((state)=>
     state.cartSlice.foodItems
@@ -28,15 +34,45 @@ export default function ReservationCart() {
     }
   }
 
+  const handleSelectLocation = (event:SelectChangeEvent) => {
+    const addressString = event.target.value
+    setLocationId(event.target.value)
+    setSelectedLocation(addressString)
+  }
+
+  useEffect(()=>{
+    const fetchAddress = async () => {
+      if (token) {
+      const fetchedAddress = await getUserAddresses(token)
+       if (fetchedAddress) {
+          setLocation(fetchedAddress.addresses)
+        }
+      }
+    }
+
+    fetchAddress()
+  }, [token])
+
   return (
-    <>
+    <div className="mt-10 pl-5 mr-5">
+        <div className="flex flex-col">
+          <div className="text-2xl mb-3"> Deliver To </div>
+          <FormControl>
+          <Select labelId="location-select" value={selectedLocation} label="location" className="w-96" onChange={handleSelectLocation}>
+            {location?.map((item:locationItem) => (
+              <MenuItem key={item._id} value={item._id}> {`${item.address} ${item.district} ${item.province} ${item.region} ${item.postalcode}`}
+              </MenuItem>
+            ))}
+          </Select>
+          </FormControl>
+        </div>
       {reservationItems?.length === 0 || !reservationItems ? (
         <><p>No Reservation</p>
         </>
       ) : (
         reservationItems?.map((reservationItem:FoodItem) => (
-          <div key={reservationItem.name} className="flex my-10 pl-5 mr-5">
-            <Image src={`/img/${reservationItem.picture}.jpg`} alt="Image Placement Here" width={200} height={200} className={styles.image}></Image>
+          <div key={reservationItem.name} className="flex my-10">
+            <Image src={`/img/foods/${reservationItem.picture}.jpg`} alt="Image Placement Here" width={200} height={200} className={styles.image}></Image>
             <div
             className="border-solid border-2 border-slate-300 w-[100%] pr-5">
               <div className="flex h-full">
@@ -62,7 +98,14 @@ export default function ReservationCart() {
           </div>
         ))
       )}
-    </>
+      <center>
+        <Link href="/payment">
+          <button className = "bg-emerald-600 hover:bg-emerald-500 text-slate-100 text-2xl rounded-xl shadow-md p-5">
+          Checkout
+          </button>
+        </Link>
+      </center>
+    </div>
   );
 }
 
