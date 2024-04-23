@@ -19,8 +19,7 @@ export default async function AddressPage({addresses}:{addresses:Promise<UserAdd
                     <TableHead>
                         <TableRow>
                             <TableCell>Address ID</TableCell>
-                            <TableCell align="right">Name</TableCell>
-                            
+                            <TableCell align="center">Name</TableCell>
                             
                         </TableRow>
                     </TableHead>

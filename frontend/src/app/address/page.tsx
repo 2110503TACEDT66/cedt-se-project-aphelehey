@@ -1,6 +1,6 @@
 "use client"
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Button } from "@mui/material";
-import getUserAddresses from "@/libs/getuserAddresses";
+import getUserAddresses from "@/libs/getUserAddresses";
 import { getServerSession } from 'next-auth';
 import { UserAddressItem } from "interfaces";
 import AddressRow from "@/components/addressRow";
@@ -34,8 +34,8 @@ export default function AddresssPage() {
                     <TableHead>
                         <TableRow>
                             <TableCell>Address ID</TableCell>
-                            <TableCell align="right">Name</TableCell>
-                            
+                            <TableCell align="center">Name</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -48,9 +48,11 @@ export default function AddresssPage() {
                 </Table>
             </TableContainer>
             
-            <Button type="primary" href="/address/new">
+            <div className="mt-4"> {/* Add margin-top of 4 units */}
+            <Button variant="contained" color="primary" href="/address/new" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Add Address
-            </Button> 
+            </Button>
+        </div>
         </div>
     </main> 
     )  

@@ -11,15 +11,11 @@ import {
 } from '@mui/material'; // Material-UI components
 
 interface Address {
-  firstName: string;
-  lastName: string;
-  addressLine1: string;
-  addressLine2: string; // Optional
-  city: string;
-  state: string;
-  postalCode: string;
-  country: string;
-  isDefault: boolean;
+  address: string ;
+  district: string ;
+  province: string ;
+  postalcode: string ;
+  region: string ;
 }
 
 const AddressForm: React.FC = () => {
@@ -39,84 +35,49 @@ const AddressForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} style={{ backgroundColor: 'white' }}>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <TextField
-            {...register('firstName', { required: true })}
-            error={!!errors.firstName}
-            helperText={errors.firstName?.message}
-            label="First Name"
-            fullWidth
-            autoFocus
-            style={{ marginRight: 10 }} // Inline style for margin
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            {...register('lastName', { required: true })}
-            error={!!errors.lastName}
-            helperText={errors.lastName?.message}
-            label="Last Name"
-            fullWidth
-            style={{ marginBottom: 15 }} // Inline style for margin
-          />
-        </Grid>
         <Grid item xs={12}>
           <TextField
-            {...register('addressLine1', { required: true })}
-            error={!!errors.addressLine1}
-            helperText={errors.addressLine1?.message}
-            label="Address Line 1"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            {...register('addressLine2')} // Optional field, no validation
-            label="Address Line 2 (Optional)"
+            {...register('address', { required: true })}
+            error={!!errors.address}
+            helperText={errors.address?.message}
+            label="Address"
             fullWidth
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            {...register('city', { required: true })}
-            error={!!errors.city}
-            helperText={errors.city?.message}
-            label="City"
+            {...register('district', { required: true })}
+            error={!!errors.district}
+            helperText={errors.district?.message}
+            label="District"
             fullWidth
           />
         </Grid>
         <Grid item xs={3}>
           <TextField
-            {...register('state', { required: true })}
-            error={!!errors.state}
-            helperText={errors.state?.message}
-            label="State"
+            {...register('province', { required: true })}
+            error={!!errors.province}
+            helperText={errors.province?.message}
+            label="Province"
             fullWidth
           />
         </Grid>
         <Grid item xs={3}>
           <TextField
-            {...register('postalCode', { required: true })}
-            error={!!errors.postalCode}
-            helperText={errors.postalCode?.message}
+            {...register('postalcode', { required: true })}
+            error={!!errors.postalcode}
+            helperText={errors.postalcode?.message}
             label="Postal Code"
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            {...register('country', { required: true })}
-            error={!!errors.country}
-            helperText={errors.country?.message}
-            label="Country"
+            {...register('region', { required: true })}
+            error={!!errors.region}
+            helperText={errors.region?.message}
+            label="Region"
             fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox {...register('isDefault')} />}
-            label="Set as Default Address"
-            style={{ marginBottom: 15 }} // Inline style for margin
           />
         </Grid>
         <Grid item xs={12}>
