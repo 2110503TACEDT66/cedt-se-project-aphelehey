@@ -70,5 +70,14 @@ export interface AddressesItem{
 export interface UserAddressItem{
   _id: string;
   name: string;
-  addresses: AddressesItem;
+  addresses: UserAddress;
 }
+
+export interface UserAddress {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
+

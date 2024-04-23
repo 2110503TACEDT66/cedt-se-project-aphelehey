@@ -9,27 +9,29 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material'; // Material-UI components
+import createNewAddress from '@/libs/newUserAddresses';
+import { UserAddress } from '../../../../interfaces';
 
-interface Address {
-  address: string ;
-  district: string ;
-  province: string ;
-  postalcode: string ;
-  region: string ;
-}
 
 const AddressForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Address>();
+  } = useForm<UserAddress>();
   const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = (data: Address) => {
+  const onSubmit = async (data: UserAddress) => {
     setSubmitted(true);
-    // Simulate form submission (replace with your actual logic)
-    console.log('Submitted address data:', data);
+
+    try {
+      // Call the createNewAddress function with user data
+      const response = await createNewAddress(data);
+      console.log('Address created successfully:', response);
+    } catch (error) {
+      console.error('Error creating address:', error);
+      // Handle errors appropriately (e.g., display an error message to the user)
+    }
   };
 
   return (
