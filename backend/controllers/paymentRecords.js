@@ -46,3 +46,10 @@ exports.updatePaymentStatus = async (req, res, next) => {
         })
     }
 }
+
+exports.getSalesData = async (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: 'Sale data'
+  })
+}
