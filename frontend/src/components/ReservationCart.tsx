@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FoodItem, OrderItem, locationItem} from "interfaces";
 import styles from '@/components/reservationcart.module.css'
+import {ArrowDropUp, ArrowDropDown} from '@mui/icons-material'
 import Image from "next/image";
-import { addReservation, removeReservation } from "@/redux/features/cartSlice";
+import { addReservation, removeReservation, updateQuantity } from "@/redux/features/cartSlice";
 import { useAppSelector } from "@/redux/store";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Link from 'next/link'
 import getUserAddresses from "@/libs/getUserAddresses";
 
 export default function ReservationCart() {
-  // const [reservationItems, setReservationItems] = useState<OrderItem[]>([]); // Initialize as empty array
-  // const [menuItems, setMenuItems] = useState<FoodItem[]>([])
   const [location, setLocation] = useState<locationItem[]>()
   const [locationId, setLocationId] = useState<string>()
   const [selectedLocation, setSelectedLocation] = useState<string>()
@@ -21,7 +20,13 @@ export default function ReservationCart() {
   const user = session?.user._id
   const dispatch = useDispatch();
 
-  console.log(token)
+  const handleChangeQuantity = (name: string, mode: string) => {
+    if (mode == "add") {
+      dispatch(updateQuantity({name: name, quantity: 1}))
+    } else if (mode == "reduce") {
+      dispatch(updateQuantity({name: name, quantity: -1}))
+    }
+  }
 
   const reservationItems = useAppSelector((state)=>
     state.cartSlice.foodItems
@@ -39,6 +44,16 @@ export default function ReservationCart() {
     setLocationId(event.target.value)
     setSelectedLocation(addressString)
   }
+
+  //only for test
+   const handleAdd = () => {
+            dispatch(addReservation({
+              name: "pizza",
+            price: 200,
+            picture: "pizza"
+          }))
+        }
+
 
   useEffect(()=>{
     const fetchAddress = async () => {
@@ -68,6 +83,7 @@ export default function ReservationCart() {
         </div>
       {reservationItems?.length === 0 || !reservationItems ? (
         <><p>No Reservation</p>
+        <button onClick={()=>{handleAdd()}}>add</button>
         </>
       ) : (
         reservationItems?.map((reservationItem:FoodItem) => (
@@ -83,6 +99,13 @@ export default function ReservationCart() {
                       </div>
                       <div className="text-2xl px-5">
                           {`${reservationItem.price} ฿`}
+                      </div>
+                      <div className="text-xl p-5 flex flex-">
+                          {`${reservationItem.quantity} Items`}
+                          <div className="ml-2">
+                            <ArrowDropUp className="border border-solid mx-1" onClick={()=>{handleChangeQuantity(reservationItem.name, "add")}}/>
+                            <ArrowDropDown className="border border-solid mx-1" onClick={()=>{handleChangeQuantity(reservationItem.name, "reduce")}}/>
+                          </div>
                       </div>
                     </div>
                 </div>
@@ -108,84 +131,3 @@ export default function ReservationCart() {
     </div>
   );
 }
-
-  // REMOVE BEFORE MERGING TO MAIN
-
-        /* ADD FOOD TO CART TEST 
-        
-        // const handleAdd = () => {
-          //   dispatch(addReservation({
-          //     name: "pizza",
-        //     price: 200,
-        //     picture: "pizza"
-        //   }))
-        // }
-
-        //=====================================================================
-        <button className="block rounded-md bg-red-700 hover:bg-red-500 px-5 py-3 my-5 mx-5 text-white shadow-sm ml-2 w-50"
-          onClick={() => {handleAdd()}}>
-          Test Add
-        </button> */
-
-        //=====================================================================
-         //Function to look up a price (not needed anymore)
-        // const priceAndPicLook = (fname: string) => {
-        //   const match = menuItems.find((menu) => menu.name === fname) 
-        //   return {price: match?.price, picture: match?.picture}
-        // }
-
-    //===========================================================================
-    // UseEffect is not needed because we store data in the local storage.
-    // useEffect(() => {
-    // const fetchData = async () => {
-    //   if (token) {
-    //     // const fetchDataJson = await getAllOrders(token);
-    //     // const fetchedData:OrderItems[] = fetchDataJson.data
-    //     const fetchedData:OrderItem[] = [ //<-- Just a mock data to test. There shouldn't be duplicate foods.
-    //     {
-    //       _id: "2411244113214",
-    //       food: ["Pizza","Pizzer","Pizzest"],
-    //       price: 200,
-    //       payment: true,
-    //       restaurant: "65e44c37cb8aa54383faa2d2",
-    //     },
-    //   ]
-    //     console.log(fetchedData);
-    //     if (fetchedData) {
-    //       setReservationItems(fetchedData);
-    //     }
-    //   }
-
-      // const fetchMenu = async () => {
-      // //const fetchedMenu = await getMenus()
-      // Mock Data again
-      // const fetchedMenu:FoodItem[] = [
-      //   {
-      //    name: "Pizza",
-      //    price: 100,
-      //    picture: "pizza"
-      //   },
-      //   {
-      //     name: "Pizzer",
-      //     price: 200,
-      //     picture: "pizza"
-      //   },
-      //   {
-      //     name: "Pizzest",
-      //     price: 300,
-      //     picture: "pizza"
-      //   }
-      // ]
-
-      // if (fetchedMenu) {
-      //   setMenuItems(fetchedMenu);
-      // }
-    // }
-    // fetchData();
-    // fetchMenu();
-
-    // };
-
-    
-
-    

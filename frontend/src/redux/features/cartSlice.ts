@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { FoodItem } from "../../../interfaces";
 import { PayloadAction } from "@reduxjs/toolkit";
-import deleteReservation from "@/libs/deleteReservation";
-import updateReservation from "@/libs/updateReservation";
 
 type CartState = {
   foodItems: FoodItem[];
@@ -17,6 +15,7 @@ export const cartSlice = createSlice({
   initialState: initialState,
   reducers: {
     addReservation:  (state = initialState, action: PayloadAction<FoodItem>) => {
+      action.payload.quantity = 1
       if (!state.foodItems) {
         state.foodItems = []
       }
@@ -30,21 +29,30 @@ export const cartSlice = createSlice({
       })
       state.foodItems = remainItems
     },
-    // editReservation: (state,action : PayloadAction<{id:string; token : string; item:object}>) =>{
-    //     console.log('Update')
-    //     console.log(action.payload.token)
-    //     console.log(action.payload.id)
-    //     const update = async()=>{
-    //         const res = await updateReservation(action.payload.id,action.payload.token,action.payload.item)
-    //         window.location.reload()
-    //     }
-    //     update()
-    // }
+    updateQuantity: (state, action: PayloadAction<{name: string, quantity: number}>) => {
+      const itemIndex = state.foodItems.findIndex((item) => item.name === action.payload.name)
+      if (itemIndex !== -1) {
+        const currentQuantity = state.foodItems[itemIndex].quantity
+        if (currentQuantity) {
+          if (currentQuantity + action.payload.quantity == 0) {
+            const remainItems = state.foodItems.filter(obj=>{
+              return (
+                obj.name !== action.payload.name
+              )
+            })
+            state.foodItems = remainItems
+          } else {
+          state.foodItems[itemIndex].quantity = currentQuantity + action.payload.quantity
+          }
+        }
+      }
+
+    }
   },
 });
 
 
-export const { addReservation, removeReservation } = cartSlice.actions;
+export const { addReservation, removeReservation, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
 
 

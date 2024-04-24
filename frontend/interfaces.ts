@@ -47,11 +47,12 @@ export interface MenuItem {
   food: Array<FoodItem>
 }
 
-export interface FoodItem {
-  name: string
-  price: number
-  picture: string
-}
+  export interface FoodItem {
+    name: string
+    price: number
+    picture: string
+    quantity?: number
+  }
 
 export interface ReservationJson {
   success: boolean;
