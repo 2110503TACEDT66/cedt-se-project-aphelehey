@@ -18,12 +18,14 @@ export default async function postOrder(order: OrderItem, token: string) {
         }
     )
 
-    const data = response.json()
+    const data = await response.json()
 
     if (!response.ok) {
         alert(data)
         throw new Error ("There is a problem when posting order")
     }
     
-    return data
+    const orderID = data.data._id
+
+    return orderID
 }

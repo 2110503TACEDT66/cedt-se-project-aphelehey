@@ -10,11 +10,12 @@ import { useAppSelector } from "@/redux/store";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Link from 'next/link'
 import getUserAddresses from "@/libs/getUserAddresses";
+import postOrder from "@/libs/postOrder";
 
 export default function ReservationCart() {
   const [location, setLocation] = useState<locationItem[]>()
   const [locationId, setLocationId] = useState<string>()
-  const [selectedLocation, setSelectedLocation] = useState<string>()
+  const [selectedLocation, setSelectedLocation] = useState<locationItem>()
   const { data: session } = useSession();
   const token = session?.user.token;
   const user = session?.user._id
@@ -40,20 +41,53 @@ export default function ReservationCart() {
   }
 
   const handleSelectLocation = (event:SelectChangeEvent) => {
-    const addressString = event.target.value
-    setLocationId(event.target.value)
-    setSelectedLocation(addressString)
+    const locID = event.target.value
+    setLocationId(locID)
+    
+    const addressString = location?.find((item) =>{
+      return item._id === locID
+    })
+
+    if (addressString) {
+
+      const selLoc:locationItem = {
+        _id: addressString._id,
+        address: addressString.address,
+        district: addressString.district,
+        province: addressString.province,
+        postalcode: addressString.postalcode,
+        region: addressString.region
+      }
+      setSelectedLocation(selLoc)
+    }
   }
 
-  //only for test
-   const handleAdd = () => {
-            dispatch(addReservation({
-              name: "pizza",
-            price: 200,
-            picture: "pizza"
-          }))
-        }
+  const handleCheckout = () => {
 
+    function totalPrice():number {
+      let total: number = 0
+      reservationItems.forEach((item:FoodItem) => {
+        if (!item.quantity) item.quantity = 1
+        total += item.price * item.quantity
+      })
+      return total
+    }
+
+    if (selectedLocation) {
+    const order:OrderItem = {
+      food: reservationItems.map((item:FoodItem) => {return item.name}),
+      price: totalPrice(),
+      payment: false,
+      location: selectedLocation
+      }
+
+      if (token && order) {
+        const orderID = postOrder(order, token);
+        // Call Mek's API here
+      }
+    }
+    
+  }
 
   useEffect(()=>{
     const fetchAddress = async () => {
@@ -73,7 +107,7 @@ export default function ReservationCart() {
         <div className="flex flex-col">
           <div className="text-2xl mb-3"> Deliver To </div>
           <FormControl>
-          <Select labelId="location-select" value={selectedLocation} label="location" className="w-96" onChange={handleSelectLocation}>
+          <Select labelId="location-select" value={locationId} label="location" className="w-96" onChange={handleSelectLocation}>
             {location?.map((item:locationItem) => (
               <MenuItem key={item._id} value={item._id}> {`${item.address} ${item.district} ${item.province} ${item.region} ${item.postalcode}`}
               </MenuItem>
@@ -83,7 +117,6 @@ export default function ReservationCart() {
         </div>
       {reservationItems?.length === 0 || !reservationItems ? (
         <><p>No Reservation</p>
-        <button onClick={()=>{handleAdd()}}>add</button>
         </>
       ) : (
         reservationItems?.map((reservationItem:FoodItem) => (
@@ -123,7 +156,7 @@ export default function ReservationCart() {
       )}
       <center>
         <Link href="/payment">
-          <button className = "bg-emerald-600 hover:bg-emerald-500 text-slate-100 text-2xl rounded-xl shadow-md p-5">
+          <button className = "bg-emerald-600 hover:bg-emerald-500 text-slate-100 text-2xl rounded-xl shadow-md p-5" onClick={handleCheckout}>
           Checkout
           </button>
         </Link>
@@ -131,3 +164,15 @@ export default function ReservationCart() {
     </div>
   );
 }
+
+/* Adding new item to cart
+        <button onClick={()=>{handleAdd()}}>add</button>
+  
+        const handleAdd = () => {
+            dispatch(addReservation({
+              name: "pizza",
+              price: 200,
+              picture: "pizza"
+          }))
+        }
+*/

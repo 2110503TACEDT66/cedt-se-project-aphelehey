@@ -71,12 +71,12 @@ export interface locationItem {
 }
 
 export interface OrderItem {
-  _id: string;
+  _id?: string;
   food: string[];
   price: number;
   payment: boolean;
-  location?: locationItem
-  restaurant: string
+  location: locationItem
+  restaurant?: string
   token?: string
   user?: string
 }
