@@ -6,7 +6,7 @@ import { paymentItem } from 'interfaces';
 import SalesRecordRow from '@/components/SalesRecordRow'
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default async function Payment(id: string, year?: number, quater?: number, month?: number) {
+export default async function Payment(id: string, year?: string, quater?: string, month?: string) {
 
     const session = await getServerSession(authOptions)
     const token = session?.user.token
