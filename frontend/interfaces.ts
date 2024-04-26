@@ -4,8 +4,8 @@ export interface ReservationItem {
   user: string;
   restaurant?: RestaurantItem;
   createdAt: string;
-  token?:string;
-  restaurantId? : string
+  token?: string;
+  restaurantId?: string
 }
 
 export interface RestaurantItem {
@@ -86,3 +86,9 @@ export interface paymentItem {
   __v: number;
 }
 
+export interface salesDataJson {
+  success: boolean;
+  count: number;
+  pagination: number;
+  data: paymentItem[];
+}
