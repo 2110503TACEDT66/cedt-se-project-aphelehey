@@ -1,4 +1,4 @@
-'use server'
+'use client'
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from "@mui/material";
 import getSalesData from "@/libs/getSalesData";
 import { getServerSession } from 'next-auth';
@@ -6,21 +6,7 @@ import { paymentItem,salesDataJson } from 'interfaces';
 import SalesRecordRow from '@/components/SalesRecordRow'
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default async function SalesRecord({ id, year, quater, month }: { id: string, year?: string, quater?: string, month?: string }) {
-
-    const session = await getServerSession(authOptions)
-    const token = session?.user.token
-
-    let sales: salesDataJson;
-    if (token) {
-        sales = await getSalesData(token, id, year, quater, month)
-        console.log(sales)
-    } else {
-        return (
-            <div className="text-4xl text-pink-700 w-[100%] flex flex-col items-center pt-20 space-y-10"> You must log in first </div>
-        )
-    }
-
+export default function SalesRecord({ sales }: { sales: salesDataJson}) {
     return (
         <main>
             <div className="text-white text-4xl my-10 mx-20">

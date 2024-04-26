@@ -27,7 +27,7 @@ export default function Sales() {
     for (let i = 12; i >= 0; i--) {
         months.push(i);
     }
-    const quaters = [4, 3, 2, 1];
+    const quaters = [4, 3, 2, 1, 0];
     useEffect(() => {
         const fetchData = async () => {
             const restaurantJson: RestaurantJson = await getRestaurants()
@@ -90,7 +90,7 @@ export default function Sales() {
                     </div>
                     <div>
                         <FormControl>
-                            <InputLabel id="quater-select-label">Year</InputLabel>
+                            <InputLabel id="quater-select-label">Quater</InputLabel>
                             <Select
                                 labelId="quater-select-label"
                                 id="quater-select"
@@ -109,7 +109,7 @@ export default function Sales() {
                     </div>
                     <div>
                         <FormControl>
-                            <InputLabel id="month-select-label">Year</InputLabel>
+                            <InputLabel id="month-select-label">Month</InputLabel>
                             <Select
                                 labelId="month-select-label"
                                 id="month-select"
@@ -138,7 +138,7 @@ export default function Sales() {
                     </div>
                 </div>
             </div>
-            {restaurantId ? <SalesRecord sales={salesDataJson} /> : null}
+            {salesData ? <SalesRecord sales={salesData} /> : null}
         </main>
     )
 }
