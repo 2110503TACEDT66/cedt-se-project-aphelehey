@@ -2,12 +2,17 @@ import { ReservationItem } from "interfaces";
 
 export default async function updatePaymentStatus(id: string,token: string) {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/paymentRecords/${id}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/paymentRecords`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json", // Specify content type as JSON
         Authorization: `Bearer ${token}`
       },
+      body: JSON.stringify(
+        {
+            order:id
+        }
+      )
     });
 
     if (!response.ok) {
