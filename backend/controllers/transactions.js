@@ -2,8 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Transaction = require('../models/Transaction');
 const {v4:uuidv4} = require('uuid')
 exports.checkout = async (req, res, next) => {
-    const {user, products} = req.body
-    const orderId = uuidv4()
+    const {user, products,orderID} = req.body
 
     const lineItems = products.map(product => ({
       price_data: {
@@ -21,7 +20,7 @@ exports.checkout = async (req, res, next) => {
         line_items: lineItems,
         mode: 'payment',
         // URL to success page
-        success_url: `${process.env.FRONTEND_URL}/payment/successful`,
+        success_url: `${process.env.FRONTEND_URL}/payment/successful?orderID=${orderID}`,
         // URL to fail page
         cancel_url: `${process.env.FRONTEND_URL}/payment/fail`,
     });
@@ -29,16 +28,15 @@ exports.checkout = async (req, res, next) => {
       const orderData = {
         fullname: user.name,
         address: user.address,
-        order_id:orderId,
-        session_id:session.id,
-        status:session.status
+        order_id:orderID,
+        id:session.id
       }
 
       const transaction = await Transaction.create(orderData)
     
       res.json({
         products,
-        orderId,
+        orderID,
         transaction
       })
     console.log(session)

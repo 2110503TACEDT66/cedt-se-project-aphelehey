@@ -12,10 +12,7 @@ const TransactionSchema = new mongoose.Schema({
     },
     order_id:{
         type: String,
-    },
-    status:{
-        type: String,
-    },
+    }
 })
 
 
