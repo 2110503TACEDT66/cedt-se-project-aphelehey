@@ -1,5 +1,8 @@
-export default async function getMenu(id: string) {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants/${id}/menus`)
+export default async function getMenu() {
+
+    const URL = 'http://localhost:5000'
+
+    const response = await fetch(`${URL}/api/v1/menus/`)
 
     const data = await response.json()
 
