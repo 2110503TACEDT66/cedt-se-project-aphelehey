@@ -1,4 +1,4 @@
-export default async function getSalesData(token: string, id: string, year?: number, quater?: number, month?: number) {
+export default async function getSalesData(token: string, id: string, year?: string, quater?: string, month?: string) {
     let queryYear = `year=${year}`;
     let queryQuater = ``;
     let queryMonth = ``;
@@ -18,5 +18,5 @@ export default async function getSalesData(token: string, id: string, year?: num
         throw new Error("Failed to fetch Restaurant")
     }
 
-    return data
+    return await response.json()
 }
