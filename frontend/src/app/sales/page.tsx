@@ -36,15 +36,12 @@ export default function Sales() {
         fetchData()
     }, [])
     useEffect(() => {
-        try {
+        if (token && restaurantId) {
             const fetchData = async () => {
                 const salesDataJson: salesDataJson = await getSalesData(token, restaurantId, year, quater, month)
                 setSalesData(salesDataJson)
             }
             fetchData()
-        }
-        catch (e) {
-            console.log("Failed to fetch Restaurant")
         }
     }, [submit])
     return (
@@ -141,7 +138,7 @@ export default function Sales() {
                     </div>
                 </div>
             </div>
-            <SalesRecord sales={salesDataJson} />
+            {restaurantId ? <SalesRecord sales={salesDataJson} /> : null}
         </main>
     )
 }
