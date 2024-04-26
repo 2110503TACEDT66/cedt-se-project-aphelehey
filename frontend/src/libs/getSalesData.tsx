@@ -1,10 +1,15 @@
-export default async function getMenu(id: string, year?: number, quater?: number, month?: number) {
+export default async function getSalesData(token: string, id: string, year?: number, quater?: number, month?: number) {
     let queryYear = `year=${year}`;
     let queryQuater = ``;
     let queryMonth = ``;
     if (quater) queryQuater = `&quater=${quater}`;
     if (month) queryMonth = `&month=${month}`
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants/${id}/paymentRecords/salesData?${queryYear}${queryQuater}${queryMonth}`)
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/restaurants/${id}/paymentRecords/salesData?${queryYear}${queryQuater}${queryMonth}`, {
+        method: "GET",
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
 
     const data = await response.json()
 
