@@ -2,8 +2,8 @@ import { OrderItem } from "interfaces";
 
 const URL = "http://localhost:5000"
 
-export default async function postOrder(order: OrderItem, token: string) {
-    const response = await fetch(`${URL}}/api/v1/restaurant/:restaurantId/orders/`, {
+export default async function postOrder(order: OrderItem, token: string, restaurantID: string) {
+    const response = await fetch(`${URL}}/api/v1/restaurant/${restaurantID}/orders/`, {
         method: "POST",
         headers: {
             authorization: `Bearer ${token}`

@@ -33,6 +33,8 @@ export default function ReservationCart() {
     state.cartSlice.foodItems
   )
 
+  const restaurantID = reservationItems[0]?.restaurant
+
   const handleRemove=(reservationItem:FoodItem)=>{
     if(reservationItem.name && token && user){
         const name = reservationItem.name
@@ -81,9 +83,11 @@ export default function ReservationCart() {
       location: selectedLocation
       }
 
-      if (token && order) {
-        const orderID = postOrder(order, token);
-        // Call Mek's API here
+      if (token && order && restaurantID) {
+        const orderID = postOrder(order, token, restaurantID);
+        // Call Mek's API with orderID here
+      } else {
+        alert("If you're able to see this, then something big has happened.")
       }
     }
     

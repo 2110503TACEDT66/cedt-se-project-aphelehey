@@ -55,7 +55,7 @@ export interface MenuItem {
     restaurant?: string
   }
 
-  export interface FoodItemAPI {
+  export interface FoodItemAPI { //<--- literally the same as above but different field names
     food: string,
     price: number,
     image: string
