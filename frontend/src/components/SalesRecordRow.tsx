@@ -3,7 +3,7 @@ import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper
 import dayjs from "dayjs";
 import { paymentItem } from "interfaces";
 
-export default function PaymentRecordRow({_id, createdAt, price}:{_id:string, createdAt:string, price:number}) {
+export default function SalesRecordRow({_id, createdAt, price}:{_id:string, createdAt:string, price:number}) {
     
     const toFormatDate = new Date(createdAt)
     const formattedDate = dayjs(toFormatDate).format('D MMMM YYYY')

@@ -1,18 +1,23 @@
 'use client'
 import getSalesData from "@/libs/getSalesData";
-import { RestaurantItem, RestaurantJson } from "interfaces";
+import { RestaurantItem, RestaurantJson, salesDataJson } from "interfaces";
 import { useState } from "react";
 import { useEffect } from "react";
 import getRestaurants from "@/libs/getRestaurants";
 import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import SalesRecord from "@/components/SalesRecord";
+import { useSession } from "next-auth/react";
 
 export default function Sales() {
     const [restaurants, setRestaurants] = useState<RestaurantJson>();
+    const [salesData, setSalesData] = useState<salesDataJson>();
     const [restaurantId, setRestaurantId] = useState("");
     const [year, setYear] = useState("");
     const [month, setMonth] = useState("");
     const [quater, setQuater] = useState("");
-    // const [showSalesRecord, setShowSalesRecord] = useState(false);
+    const [submit, setSubmit] = useState(false);
+    const { data: session } = useSession()
+    const token = session?.user.token;
     const years = [];
     const currentYear = new Date().getFullYear();
     for (let year = currentYear; year >= currentYear - 50; year--) {
@@ -22,7 +27,7 @@ export default function Sales() {
     for (let i = 12; i >= 0; i--) {
         months.push(i);
     }
-    const quarters = [4, 3, 2, 1]
+    const quaters = [4, 3, 2, 1];
     useEffect(() => {
         const fetchData = async () => {
             const restaurantJson: RestaurantJson = await getRestaurants()
@@ -30,10 +35,18 @@ export default function Sales() {
         }
         fetchData()
     }, [])
-
-    // const showSalesRecord = () => {
-
-    // }
+    useEffect(() => {
+        try {
+            const fetchData = async () => {
+                const salesDataJson: salesDataJson = await getSalesData(token, restaurantId, year, quater, month)
+                setSalesData(salesDataJson)
+            }
+            fetchData()
+        }
+        catch (e) {
+            console.log("Failed to fetch Restaurant")
+        }
+    }, [submit])
     return (
         <main>
             <div>
@@ -89,7 +102,7 @@ export default function Sales() {
                                     setQuater(e.target.value as string);
                                 }}
                             >
-                                {years.map((quater) => (
+                                {quaters.map((quater) => (
                                     <MenuItem key={quater} value={quater}>
                                         {quater}
                                     </MenuItem>
@@ -108,7 +121,7 @@ export default function Sales() {
                                     setMonth(e.target.value as string);
                                 }}
                             >
-                                {years.map((month) => (
+                                {months.map((month) => (
                                     <MenuItem key={month} value={month}>
                                         {month}
                                     </MenuItem>
@@ -121,14 +134,14 @@ export default function Sales() {
                         <button
                             className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
             text-white shadow-sm"
-                            onClick={}
+                            onClick={() => { setSubmit(!submit) }}
                         >
                             Search
                         </button>
                     </div>
                 </div>
             </div>
-            <SalesRecord id={restaurantId} year={year} quater={quater} month={month} />
+            <SalesRecord sales={salesDataJson} />
         </main>
     )
 }
