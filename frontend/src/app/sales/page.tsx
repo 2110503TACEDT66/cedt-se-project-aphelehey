@@ -24,10 +24,10 @@ export default function Sales() {
         years.push(year);
     }
     const months = [];
-    for (let i = 12; i >= 0; i--) {
+    for (let i = 12; i > 0; i--) {
         months.push(i);
     }
-    const quaters = [4, 3, 2, 1, 0];
+    const quaters = [4, 3, 2, 1];
     useEffect(() => {
         const fetchData = async () => {
             const restaurantJson: RestaurantJson = await getRestaurants()
@@ -97,6 +97,7 @@ export default function Sales() {
                                 value={quater}
                                 onChange={(e) => {
                                     setQuater(e.target.value as string);
+                                    setMonth("")
                                 }}
                             >
                                 {quaters.map((quater) => (
@@ -116,6 +117,7 @@ export default function Sales() {
                                 value={month}
                                 onChange={(e) => {
                                     setMonth(e.target.value as string);
+                                    setQuater("")
                                 }}
                             >
                                 {months.map((month) => (

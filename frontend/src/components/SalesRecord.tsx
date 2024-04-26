@@ -2,11 +2,11 @@
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper } from "@mui/material";
 import getSalesData from "@/libs/getSalesData";
 import { getServerSession } from 'next-auth';
-import { paymentItem,salesDataJson } from 'interfaces';
+import { paymentItem, salesDataJson } from 'interfaces';
 import SalesRecordRow from '@/components/SalesRecordRow'
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default function SalesRecord({ sales }: { sales: salesDataJson}) {
+export default function SalesRecord({ sales }: { sales: salesDataJson }) {
     return (
         <main>
             <div className="text-white text-4xl my-10 mx-20">
