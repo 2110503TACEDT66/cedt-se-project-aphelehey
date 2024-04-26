@@ -52,6 +52,13 @@ export interface MenuItem {
     price: number
     picture: string
     quantity?: number
+    restaurant?: string
+  }
+
+  export interface FoodItemAPI {
+    food: string,
+    price: number,
+    image: string
   }
 
 export interface ReservationJson {
