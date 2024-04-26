@@ -18,5 +18,5 @@ export default async function getSalesData(token: string, id: string, year?: num
         throw new Error("Failed to fetch Restaurant")
     }
 
-    return data
+    return await response.json()
 }
