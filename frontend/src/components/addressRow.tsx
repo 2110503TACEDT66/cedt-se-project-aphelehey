@@ -1,20 +1,29 @@
+'use client'
 import { TableCell, TableRow, IconButton } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import deleteAddress from "@/libs/deleteAddress";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { useEffect, useState } from "react";
 
-export default async function AddressRow({_id, name}:{_id:string, name:string}) {
+export default function AddressRow({_id, name}:{_id:string, name:string}) {
+    const [token, setToken] = useState<string | null>(null); // State to hold the token
 
-    let token = ""; // Initialize token as an empty string
+    useEffect(() => {
+        // Function to retrieve session and set token
+        const retrieveSession = async () => {
+            try {
+                const session = await getServerSession(authOptions);
+                const userToken = session?.user.token || null;
+                setToken(userToken); // Set the token in state
+            } catch (error: any) {
+                console.error("Error retrieving session:", error);
+            }
+        };
 
-    try {
-        const session = await getServerSession(authOptions);
-        token = session?.user.token || ""; // Assign token from session or an empty string if session is undefined
-    } catch (error: any) {
-        console.error("Error retrieving session:", error);
-    }
-    
+        retrieveSession(); // Call the function to retrieve session
+    }, []); // Run only once on component mount
+
     const handleDelete = async () => {
         try {
             if (!token) {
@@ -25,7 +34,7 @@ export default async function AddressRow({_id, name}:{_id:string, name:string}) 
         } catch (error: any) {
             console.error("Failed to delete address:", error.message);
         }
-    }
+    };
 
     return (
         <TableRow>
@@ -36,6 +45,6 @@ export default async function AddressRow({_id, name}:{_id:string, name:string}) 
                     <DeleteIcon />
                 </IconButton>
             </TableCell>
-        </TableRow>    
-    )
+        </TableRow>
+    );
 }
