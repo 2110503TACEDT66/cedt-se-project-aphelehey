@@ -15,7 +15,7 @@ export default function Sales() {
     const [year, setYear] = useState("");
     const [month, setMonth] = useState("");
     const [quater, setQuater] = useState("");
-    const [submit, setSubmit] = useState(false);
+    const [submit, setSubmit] = useState<number>(0);
     const { data: session } = useSession()
     const token = session?.user.token;
     const years = [];
@@ -36,7 +36,7 @@ export default function Sales() {
         fetchData()
     }, [])
     useEffect(() => {
-        if (token && restaurantId) {
+        if (token && restaurantId && submit > 0) {
             const fetchData = async () => {
                 const salesDataJson: salesDataJson = await getSalesData(token, restaurantId, year, quater, month)
                 setSalesData(salesDataJson)
@@ -47,105 +47,107 @@ export default function Sales() {
     return (
         <main>
             <div>
-                <h1>Search</h1>
-                <div className="flex flex-row">
-                    <div>
-                        <Select
-                             style={{ marginTop: '10px' , marginRight: '10px'}}
-                            variant="standard"
-                            name="restaurant"
-                            id="restaurant"
-                            value={restaurantId}
-                            className="h-[2em] w-[200px]"
-                            onChange={(e) => {
-                                setRestaurantId(e.target.value as string);
-                            }}
-                        >
-                            {restaurants ? (
-                                restaurants.data.map((restaurant: RestaurantItem) => (
-                                    <MenuItem key={restaurant._id} value={restaurant._id}>
-                                        {restaurant.name}
-                                    </MenuItem>
-                                ))
-                            ) : null}
-                        </Select>
-                    </div>
-                    <div>
-                        <FormControl>
-                            <InputLabel id="year-select-label">Year</InputLabel>
+                <div className="flex flex-col w-[100%] items-center justify-center mt-5 font-bold">
+                    <div className="items-center bg-gray-200 p-5 rounded-t-lg text-xl">Search Sales Data</div>
+                    <div className="flex flex-row w-auto h-auto rounded-b-lg bg-white shadow-md overflow-hidden items-center justify-center p-5 bg-gray-200">
+                        <div>
                             <Select
-                                style={{ marginRight: '10px' , marginLeft : '10px', width: '100px'}}
-                                labelId="year-select-label"
-                                id="year-select"
-                                value={year}
+                                style={{ marginTop: '10px', marginRight: '10px' }}
+                                variant="standard"
+                                name="restaurant"
+                                id="restaurant"
+                                value={restaurantId}
+                                className="h-[2em] w-[200px]"
                                 onChange={(e) => {
-                                    setYear(e.target.value as string);
+                                    setRestaurantId(e.target.value as string);
                                 }}
                             >
-                                {years.map((year) => (
-                                    <MenuItem key={year} value={year}>
-                                        {year}
-                                    </MenuItem>
-                                ))}
+                                {restaurants ? (
+                                    restaurants.data.map((restaurant: RestaurantItem) => (
+                                        <MenuItem key={restaurant._id} value={restaurant._id}>
+                                            {restaurant.name}
+                                        </MenuItem>
+                                    ))
+                                ) : null}
                             </Select>
-                        </FormControl>
-                    </div>
-                    <div>
-                        <FormControl>
-                            <InputLabel id="quater-select-label">Quater</InputLabel>
-                            <Select
-                              style={{ marginRight: '10px' , marginLeft : '10px', width: '100px'}}
-                                labelId="quater-select-label"
-                                id="quater-select"
-                                value={quater}
-                                onChange={(e) => {
-                                    setQuater(e.target.value as string);
-                                    setMonth("")
-                                }}
-                            >
-                                {quaters.map((quater) => (
-                                    <MenuItem key={quater} value={quater}>
-                                        {quater}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div>
-                        <FormControl>
-                            <InputLabel id="month-select-label">Month</InputLabel>
-                            <Select
-                               style={{ marginRight: '10px' , marginLeft : '10px', width: '100px'}}
-                                labelId="month-select-label"
-                                id="month-select"
-                                value={month}
-                                onChange={(e) => {
-                                    setMonth(e.target.value as string);
-                                    setQuater("")
-                                }}
-                            >
-                                {months.map((month) => (
-                                    <MenuItem key={month} value={month}>
-                                        {month}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
+                        </div>
+                        <div>
+                            <FormControl>
+                                <InputLabel id="year-select-label">Year</InputLabel>
+                                <Select
+                                    style={{ marginRight: '10px', marginLeft: '10px', width: '100px' }}
+                                    labelId="year-select-label"
+                                    id="year-select"
+                                    value={year}
+                                    onChange={(e) => {
+                                        setYear(e.target.value as string);
+                                    }}
+                                >
+                                    {years.map((year) => (
+                                        <MenuItem key={year} value={year}>
+                                            {year}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl>
+                                <InputLabel id="quater-select-label">Quater</InputLabel>
+                                <Select
+                                    style={{ marginRight: '10px', marginLeft: '10px', width: '100px' }}
+                                    labelId="quater-select-label"
+                                    id="quater-select"
+                                    value={quater}
+                                    onChange={(e) => {
+                                        setQuater(e.target.value as string);
+                                        setMonth("")
+                                    }}
+                                >
+                                    {quaters.map((quater) => (
+                                        <MenuItem key={quater} value={quater}>
+                                            {quater}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl>
+                                <InputLabel id="month-select-label">Month</InputLabel>
+                                <Select
+                                    style={{ marginRight: '10px', marginLeft: '10px', width: '100px' }}
+                                    labelId="month-select-label"
+                                    id="month-select"
+                                    value={month}
+                                    onChange={(e) => {
+                                        setMonth(e.target.value as string);
+                                        setQuater("")
+                                    }}
+                                >
+                                    {months.map((month) => (
+                                        <MenuItem key={month} value={month}>
+                                            {month}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
 
-                    <div>
-                        <button
-                            className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
+                        <div>
+                            <button
+                                className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
             text-white shadow-sm"
-                            onClick={() => { setSubmit(!submit) }}
-                            style={{ marginTop: '10px' , marginLeft : '10px'}}
-                        >
-                            Search
-                        </button>
+                                onClick={() => { setSubmit(submit + 1) }}
+                                style={{ marginTop: '10px', marginLeft: '10px' }}
+                            >
+                                Search
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            {salesData ? <SalesRecord sales={salesData} /> : null}
+            {salesData ? <SalesRecord sales={salesData}  /> : null}
         </main>
     )
 }

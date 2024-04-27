@@ -89,6 +89,6 @@ export interface paymentItem {
 export interface salesDataJson {
   success: boolean;
   count: number;
-  pagination: number;
+  sales: number;
   data: paymentItem[];
 }
