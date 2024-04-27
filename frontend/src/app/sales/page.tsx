@@ -51,6 +51,7 @@ export default function Sales() {
                 <div className="flex flex-row">
                     <div>
                         <Select
+                             style={{ marginTop: '10px' , marginRight: '10px'}}
                             variant="standard"
                             name="restaurant"
                             id="restaurant"
@@ -73,6 +74,7 @@ export default function Sales() {
                         <FormControl>
                             <InputLabel id="year-select-label">Year</InputLabel>
                             <Select
+                                style={{ marginRight: '10px' , marginLeft : '10px', width: '100px'}}
                                 labelId="year-select-label"
                                 id="year-select"
                                 value={year}
@@ -92,6 +94,7 @@ export default function Sales() {
                         <FormControl>
                             <InputLabel id="quater-select-label">Quater</InputLabel>
                             <Select
+                              style={{ marginRight: '10px' , marginLeft : '10px', width: '100px'}}
                                 labelId="quater-select-label"
                                 id="quater-select"
                                 value={quater}
@@ -112,6 +115,7 @@ export default function Sales() {
                         <FormControl>
                             <InputLabel id="month-select-label">Month</InputLabel>
                             <Select
+                               style={{ marginRight: '10px' , marginLeft : '10px', width: '100px'}}
                                 labelId="month-select-label"
                                 id="month-select"
                                 value={month}
@@ -134,6 +138,7 @@ export default function Sales() {
                             className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2
             text-white shadow-sm"
                             onClick={() => { setSubmit(!submit) }}
+                            style={{ marginTop: '10px' , marginLeft : '10px'}}
                         >
                             Search
                         </button>
