@@ -59,6 +59,52 @@ export interface ReservationJson {
   data: ReservationItem[];
 }
 
+export interface AddressesItem{
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
+
+export interface UserAddressItem{
+  _id: string;
+  name: string;
+  addresses: UserAddress;
+}
+
+export interface UserAddress {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
+
+
+export interface AddressesItem{
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
+
+export interface UserAddressItem{
+  _id: string;
+  name: string;
+  addresses: UserAddress;
+}
+
+export interface UserAddress {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
+
+
 export interface locationItem {
   address: string;
   district: string;
