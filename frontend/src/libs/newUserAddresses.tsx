@@ -1,8 +1,9 @@
 import { UserAddress } from "interfaces";
-export default async function createNewAddress(newAddress: UserAddress) {
+
+export default async function createNewAddress(newAddress: UserAddress, authorizationToken?: string) {
   console.log('IN'); // Optional debugging log
 
-  const url = `${process.env.BACKEND_URL}/api/v1/userAddresses`;
+  const url = `http://localhost:5000/api/v1/userAddresses`;
 
   const body = JSON.stringify({ address: newAddress }); // Include address data
 
@@ -11,7 +12,7 @@ export default async function createNewAddress(newAddress: UserAddress) {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        // Add Authorization header (if required) with appropriate user credentials
+        ...(authorizationToken ? { 'Authorization': `Bearer ${authorizationToken}` } : {}), // Add Authorization header conditionally
       },
       body,
     });

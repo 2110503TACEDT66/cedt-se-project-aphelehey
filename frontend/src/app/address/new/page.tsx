@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   TextField,
@@ -9,28 +9,46 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material'; // Material-UI components
-import createNewAddress from '@/libs/newUserAddresses';
-import { UserAddress } from '../../../../interfaces';
+import createNewAddress from '@/libs/newUserAddresses'; // Assuming this imports the backend function
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 
+interface UserAddress {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+}
 
-const AddressForm: React.FC = () => {
+const AddressForm: React.FC =  () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserAddress>();
   const [submitted, setSubmitted] = useState(false);
-
-  const onSubmit = async (data: UserAddress) => {
+  const [userToken, setUserToken] = useState<string | null>(null); // State to store user token
+  const { data: session } = useSession();
+  const token = session?.user.token;
+  
+  const onSubmit =  (data: UserAddress) => {
     setSubmitted(true);
 
     try {
-      // Call the createNewAddress function with user data
-      const response = await createNewAddress(data);
+      const response =  createNewAddress(data, token); // Pass userToken if available
       console.log('Address created successfully:', response);
+
+      // Handle successful submission (e.g., clear form, show success message)
+      // You can customize this based on your backend response and UI requirements
+      setSubmitted(false); // Reset form state for new submissions
     } catch (error) {
       console.error('Error creating address:', error);
+
       // Handle errors appropriately (e.g., display an error message to the user)
+      // You can add error handling logic here, such as setting an error state
+      // to display an error message to the user.
     }
   };
 
@@ -76,7 +94,7 @@ const AddressForm: React.FC = () => {
         <Grid item xs={12}>
           <TextField
             {...register('region', { required: true })}
-            error={!!errors.region}
+            error={!!errors.errors}
             helperText={errors.region?.message}
             label="Region"
             fullWidth
@@ -88,7 +106,7 @@ const AddressForm: React.FC = () => {
               Address submitted successfully!
             </Typography>
           ) : (
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" >
               Add Address
             </Button>
           )}
