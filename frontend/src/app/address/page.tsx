@@ -1,4 +1,4 @@
-"use client"
+
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Button } from "@mui/material";
 import getUserAddresses from "@/libs/getUserAddresses";
 import { getServerSession } from 'next-auth';
@@ -7,21 +7,23 @@ import AddressRow from "@/components/addressRow";
 import { useSession } from "next-auth/react";
 import AddressPage from "@/components/addressPage";
 import { useRouter } from 'next/router';
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-
-export default function AddresssPage() {
-    let addresses:UserAddressItem[] = [{
-        _id: "661d0bd3b876c31024b8d5bd",
-        name: "string",
-        addresses:{
-            "address": "string",
-            "district": "string",
-            "province": "string",
-            "postalcode": "string",
-            "region": "string",
-        }
-        }]
-
+export default async function AddresssPage() {
+    
+    const session = await getServerSession(authOptions)
+    const token = session?.user.token
+    console.log(token)
+    let addresses
+    if (token) {
+        addresses = await getUserAddresses(token)
+    } else {
+        return (
+            <div className="text-4xl text-pink-700 w-[100%] flex flex-col items-center pt-20 space-y-10"> You must log in first </div>
+        )
+    }
+    
+    
     return (
         
         <main>
@@ -33,7 +35,7 @@ export default function AddresssPage() {
                 <Table sx={{ minWidth: 650 }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Address ID</TableCell>
+                            <TableCell>Address</TableCell>
                             <TableCell align="center">Name</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
@@ -41,7 +43,7 @@ export default function AddresssPage() {
                     <TableBody>
                         {
                             addresses.map((address:UserAddressItem) => (
-                                <AddressRow _id={address._id}  name={address.name} />
+                                <AddressRow _id={address.addresses.address}  name={address.name} />
                                 ))
                         }
                     </TableBody>
