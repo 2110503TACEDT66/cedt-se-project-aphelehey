@@ -4,8 +4,8 @@ export interface ReservationItem {
   user: string;
   restaurant?: RestaurantItem;
   createdAt: string;
-  token?:string;
-  restaurantId? : string
+  token?: string;
+  restaurantId?: string;
 }
 
 export interface RestaurantItem {
@@ -36,20 +36,20 @@ export interface RestaurantJson {
 }
 
 export interface MenuJson {
-  sucess: boolean
-  count: number
-  data: MenuItem[]
+  sucess: boolean;
+  count: number;
+  data: MenuItem[];
 }
 
 export interface MenuItem {
-  _id: string
-  name: string
-  food: Array<FoodItem>
+  _id: string;
+  name: string;
+  food: Array<FoodItem>;
 }
 
 export interface FoodItem {
-  name: string
-  img: string
+  name: string;
+  img: string;
 }
 
 export interface ReservationJson {
@@ -86,3 +86,15 @@ export interface paymentItem {
   __v: number;
 }
 
+
+export interface PaymentItem {
+  name: string;
+  email: string;
+  address: string;
+  city: string;
+  zipCode: string;
+  cardName: string;
+  cardNum: string;
+  expDate: string;
+  cvv: string;
+}
