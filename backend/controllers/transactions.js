@@ -37,7 +37,8 @@ exports.checkout = async (req, res, next) => {
       res.json({
         products,
         orderID,
-        transaction
+        transaction,
+        url : session.url
       })
-    console.log(session)
+    //console.log(session)
 }
