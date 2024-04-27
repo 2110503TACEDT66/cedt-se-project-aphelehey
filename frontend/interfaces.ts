@@ -98,3 +98,9 @@ export interface PaymentItem {
   expDate: string;
   cvv: string;
 }
+export interface salesDataJson {
+  success: boolean;
+  count: number;
+  sales: number;
+  data: paymentItem[];
+}
