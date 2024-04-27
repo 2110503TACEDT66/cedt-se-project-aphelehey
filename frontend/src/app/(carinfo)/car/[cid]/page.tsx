@@ -1,7 +1,9 @@
 'use client'
 import FoodCard from "@/components/FoodCard";
 import getMenu from "@/libs/getMenu";
+import { Button } from "@mui/material";
 import { FoodItemAPI } from "interfaces";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function MenuPage() {
@@ -29,6 +31,11 @@ export default function MenuPage() {
                     ))
                 }
             </div>
+            <center>
+                <Button variant="contained" color="primary" href="/cart" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    My cart
+                </Button>
+            </center>
         </>
     )
 }

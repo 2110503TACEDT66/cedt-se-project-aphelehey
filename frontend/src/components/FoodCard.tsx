@@ -1,24 +1,27 @@
 import { addReservation } from "@/redux/features/cartSlice";
 import { FoodItemAPI } from "interfaces";
-import Image from "next/image"
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 
+
 export default function FoodCard(item:FoodItemAPI) {
 
-    const dispatch = useDispatch()
-    const {cid} = useParams() //Should be changed into a meaningful name, like rid "restaurant id"
-
+    const dispatch = useDispatch();
+    const { cid } = useParams(); // Should be changed to a meaningful name (e.g., rid for "restaurant id")
+   
+  
     const handleAddToMenu = () => {
-        if (cid) {
-            dispatch(addReservation({
-                name: item.food,
-                price: item.price,
-                picture: item.image,
-                restaurant: cid.toString()
-            }))
-        }
-    }
+      if (cid) {
+        dispatch(addReservation({
+          name: item.food,
+          price: item.price,
+          picture: item.image,
+          restaurant: cid.toString(),
+        }))
+        window.alert('1 item added to cart!');
+      }
+    };
 
     return (
         <div className='w-[45rem] h-[150px] rounded-lg shadow-lg flex flex-row hover:shadow-2xl cursor-pointer' onClick={()=>{handleAddToMenu()}}>
