@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { FoodItem, OrderItem, locationItem} from "interfaces";
+import { FoodItem, OrderFoodItem, OrderItem, locationItem} from "interfaces";
 import styles from '@/components/reservationcart.module.css'
 import {ArrowDropUp, ArrowDropDown} from '@mui/icons-material'
 import Image from "next/image";
@@ -11,6 +11,8 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@m
 import Link from 'next/link'
 import getUserAddresses from "@/libs/getUserAddresses";
 import postOrder from "@/libs/postOrder";
+import { useRouter } from "next/navigation";
+import postTransaction from "@/libs/postTransaction";
 
 export default function ReservationCart() {
   const [location, setLocation] = useState<locationItem[]>()
@@ -20,6 +22,7 @@ export default function ReservationCart() {
   const token = session?.user.token;
   const user = session?.user._id
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleChangeQuantity = (name: string, mode: string) => {
     if (mode == "add") {
@@ -64,7 +67,8 @@ export default function ReservationCart() {
     }
   }
 
-  const handleCheckout = () => {
+
+  const handleCheckout = async () => {
 
     function totalPrice():number {
       let total: number = 0
@@ -75,17 +79,25 @@ export default function ReservationCart() {
       return total
     }
 
+    function getProducts():OrderFoodItem[] {
+      return reservationItems?.map((item:FoodItem) => {return {name:item.name, price:item.price, quantity:item.quantity?item.quantity:1}})
+    }
+
     if (selectedLocation) {
     const order:OrderItem = {
-      food: reservationItems.map((item:FoodItem) => {return item.name}),
+      food: reservationItems?.map((item:FoodItem) => {return item.name}),
       price: totalPrice(),
       payment: false,
       location: selectedLocation
       }
 
       if (token && order && restaurantID) {
-        const orderID = postOrder(order, token, restaurantID);
+        const orderID = await postOrder(order, token, restaurantID);
+        console.log(orderID);
         // Call Mek's API with orderID here
+        const transaction = await postTransaction(session.user.name,order.location,getProducts(),token,orderID);
+        console.log(transaction);
+        router.push(transaction.url)
       } else {
         alert("If you're able to see this, then something big has happened.")
       }
@@ -159,11 +171,9 @@ export default function ReservationCart() {
         ))
       )}
       <center>
-        <Link href="/payment">
           <button className = "bg-emerald-600 hover:bg-emerald-500 text-slate-100 text-2xl rounded-xl shadow-md p-5" onClick={handleCheckout}>
           Checkout
           </button>
-        </Link>
       </center>
     </div>
   );

@@ -2,6 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Transaction = require('../models/Transaction');
 const {v4:uuidv4} = require('uuid')
 exports.checkout = async (req, res, next) => {
+  console.log(req.body)
     const {user, products,orderID} = req.body
 
     const lineItems = products.map(product => ({
@@ -40,5 +41,5 @@ exports.checkout = async (req, res, next) => {
         transaction,
         url : session.url
       })
-    //console.log(session)
+    console.log(session)
 }

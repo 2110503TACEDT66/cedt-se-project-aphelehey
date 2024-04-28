@@ -201,3 +201,9 @@ export interface salesDataJson {
   sales: number;
   data: paymentItem[];
 }
+
+export interface OrderFoodItem {
+  name: string;
+  price: number;
+  quantity: number;
+}

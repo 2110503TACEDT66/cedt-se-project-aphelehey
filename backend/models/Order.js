@@ -11,7 +11,7 @@ const OrderSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true
+        //required: true
     },
     payment: {
         type: Boolean,
