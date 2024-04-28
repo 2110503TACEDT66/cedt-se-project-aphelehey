@@ -18,8 +18,23 @@ export const cartSlice = createSlice({
       action.payload.quantity = 1
       if (!state.foodItems) {
         state.foodItems = []
+      }    
+      function checkIfChosen(state:CartState, action: PayloadAction<FoodItem>) {
+        const chosenItem = state.foodItems.find(item => item.name === action.payload.name);
+        return chosenItem
       }
-      state.foodItems.push(action.payload)
+
+      const chosenItem = checkIfChosen(state, action)
+
+      if (chosenItem) {
+        const chosenItem = checkIfChosen(state, action)
+        const currentQuantity = chosenItem?.quantity
+        if (currentQuantity) {
+          chosenItem.quantity = currentQuantity + 1
+        }
+      } else {
+        state.foodItems.push(action.payload)
+      }
     },
     removeReservation:  (state, action: PayloadAction<{ fname: string }>) => { //<-- dispatch(removeReservation({fname: ชื่ออาหาร}))
       const remainItems = state.foodItems.filter(obj =>{
