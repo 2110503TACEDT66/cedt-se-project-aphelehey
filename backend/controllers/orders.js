@@ -133,7 +133,6 @@ exports.updateOrder = async (req, res, next) => {
     }
 
     order = await Order.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
       runValidators: true,
     });
 

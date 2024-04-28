@@ -6,6 +6,7 @@ export default async function updateOrder(orderID: string, token: string) {
   const response = await fetch(`${URL}/api/v1/orders/${orderID}`, {
     method: "PUT",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -16,7 +17,6 @@ export default async function updateOrder(orderID: string, token: string) {
   const data = await response.json();
 
   if (!response.ok) {
-    alert(data);
     throw new Error("There is a problem when updating order");
   }
 

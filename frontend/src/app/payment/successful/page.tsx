@@ -1,4 +1,4 @@
-
+"use client"
 import React from 'react'
 import Head from 'next/head';
 import updateOrder from '@/libs/updateOrder';
@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 import { useSession } from 'next-auth/react';
 
-export default async function page() {
+export default function page() {
   const urlParams = useSearchParams();
   const orderID = urlParams.get("orderID");
   const { data: session } = useSession();
@@ -16,6 +16,7 @@ export default async function page() {
     const handleUpdateOrder = async() => {
       if(orderID && token){
         try{
+          console.log(token)
           await updateOrder(orderID, token);
         }catch(e){
           console.log(e);
@@ -24,7 +25,7 @@ export default async function page() {
     }
 
     handleUpdateOrder();
-  }, [orderID, token]);
+  },[token]);
   return (
     <div><Head>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet" />
