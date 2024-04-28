@@ -1,11 +1,13 @@
 import Productcard from "./ProductCard"
 import Link from "next/link"
 import { RestaurantItem, RestaurantJson } from "interfaces"
+import { revalidatePath, revalidateTag } from "next/cache"
 
 export default async function RestaurantCatalog({ restaurantJson }: { restaurantJson: Promise<RestaurantJson>}) {
     // console.log('test')
+    revalidateTag("restaurants")
     const restaurantJsonReady = await restaurantJson
-    // console.log(restaurantJsonReady);
+    //console.log(restaurantJsonReady);
     return (
         <>
             Choose from one of our {restaurantJsonReady.count} restaurants
