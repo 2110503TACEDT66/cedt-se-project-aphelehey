@@ -8,8 +8,8 @@ import { RestaurantItem, RestaurantJson } from "interfaces"
 export default function Car() {
     const restaurants = getRestaurants()
     return (
-        <main className="text-center p-5">
-            <h1 className="text-xl font-medium">Select Your Restaurant</h1>
+        <main className="text-center p-5 bg-slate-100">
+            <h1 className="text-2xl font-medium text-black bold">Select Restaurant</h1>
             <Suspense fallback={<p>Loading ... <LinearProgress /></p>}>
                 <CarCatalog restaurantJson={restaurants} />
             </Suspense>

@@ -185,7 +185,7 @@ export default function ReservationCart() {
         </FormControl>
       </div>
       {reservationItems?.length === 0 || !reservationItems ? (
-        <><p>No Reservation</p>
+        <><p className="text-white">No Reservation</p>
         </>
       ) : (
         reservationItems?.map((reservationItem: FoodItem) => (

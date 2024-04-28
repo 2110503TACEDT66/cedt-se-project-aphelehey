@@ -27,7 +27,7 @@ export default async function AddresssPage() {
     return (
         
         <main>
-        <div className="text-white text-4xl my-10 mx-20">
+        <div className="text-white text-4xl bg-black p-2 mb-10">
             Address Records
         </div>
         <div className='w-[100%] flex flex-col items-center'>
