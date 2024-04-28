@@ -1,8 +1,9 @@
-'use client';
+
 import React from 'react'
 import Head from 'next/head';
 import updateOrder from '@/libs/updateOrder';
 import { useSearchParams } from "next/navigation";
+import { useEffect } from 'react';
 
 import { useSession } from 'next-auth/react';
 
@@ -11,17 +12,19 @@ export default async function page() {
   const orderID = urlParams.get("orderID");
   const { data: session } = useSession();
   const token= session?.user.token;
-  const handleUpdateOrder = async() =>{
-        
-    if(orderID && token){
-      try{
-        await updateOrder(orderID, token);
-      }catch(e){
-        console.log(e);
+  useEffect(() => {
+    const handleUpdateOrder = async() => {
+      if(orderID && token){
+        try{
+          await updateOrder(orderID, token);
+        }catch(e){
+          console.log(e);
+        }
       }
     }
-  
-}
+
+    handleUpdateOrder();
+  }, [orderID, token]);
   return (
     <div><Head>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet" />
