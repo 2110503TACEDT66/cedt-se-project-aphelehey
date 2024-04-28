@@ -22,6 +22,7 @@ const menus = require('./routes/menus.js');
 const paymentRecords = require('./routes/paymentRecords.js')
 const transaction = require('./routes/transactions.js')
 const userAddresses = require('./routes/userAddresses.js')
+const orders = require('./routes/orders.js')
 
 const limiter = rateLimit({
     windowsMs: 10 * 60 * 1000,
@@ -47,6 +48,7 @@ app.use('/api/v1/menus', menus);
 app.use('/api/v1/paymentRecords', paymentRecords);
 app.use('/api/v1/transactions',transaction);
 app.use('/api/v1/userAddresses', userAddresses);
+app.use('/api/v1/orders',orders );
 
 
 
