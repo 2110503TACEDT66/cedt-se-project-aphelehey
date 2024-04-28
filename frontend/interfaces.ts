@@ -47,10 +47,19 @@ export interface MenuItem {
   food: Array<FoodItem>;
 }
 
-export interface FoodItem {
-  name: string;
-  img: string;
-}
+  export interface FoodItem {
+    name: string
+    price: number
+    picture: string
+    quantity?: number
+    restaurant?: string
+  }
+
+  export interface FoodItemAPI { //<--- literally the same as above but different field names
+    food: string,
+    price: number,
+    image: string
+  }
 
 export interface ReservationJson {
   success: boolean;
@@ -58,6 +67,48 @@ export interface ReservationJson {
   pagination: Object;
   data: ReservationItem[];
 }
+
+export interface locationItem {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+  _id: string;
+}
+
+export interface OrderItem {
+  _id?: string;
+  food: string[];
+  price: number;
+  payment: boolean;
+  location: locationItem
+  restaurant?: string
+  token?: string
+  user?: string
+}
+
+
+export interface locationItem {
+  address: string;
+  district: string;
+  province: string;
+  postalcode: string;
+  region: string;
+  _id: string;
+}
+
+export interface OrderItem {
+  _id?: string;
+  food: string[];
+  price: number;
+  payment: boolean;
+  location: locationItem
+  restaurant?: string
+  token?: string
+  user?: string
+}
+
 
 export interface AddressesItem{
   address: string;

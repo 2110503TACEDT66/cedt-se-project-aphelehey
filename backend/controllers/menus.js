@@ -4,33 +4,14 @@ const Restaurant = require('../models/Restaurant');
 
 exports.getMenus = async (req, res, next) => {
     let query;
-
-    if (req.params.restaurantId) {
-        console.log(req.params.restaurantId)
-        query = Menu.find({ restaurant: req.params.restaurantId }).populate({
-            path: 'restaurant',
-            select: 'name province tel'
-        });
-    }
-    else {
-
-        query = Menu.find().populate({
-            path: 'restaurant',
-            select: 'name province tel'
-        });
-    }
+    query = Menu.find()
 
     try {
         const menus = await query;
 
-        res.status(200).json({
-            success: true,
-            count: menus.length,
-            data: menus
-        })
+        res.status(200).json(menus)
     }
     catch (error) {
-        console.log(error);
         return res.status(500).json({
             success: false,
             message: 'Cannot find Menu'

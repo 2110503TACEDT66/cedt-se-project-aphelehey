@@ -1,69 +1,58 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ReservationItem } from "../../../interfaces";
+import { FoodItem } from "../../../interfaces";
 import { PayloadAction } from "@reduxjs/toolkit";
-import newReservation from "@/libs/newReservation";
-import deleteReservation from "@/libs/deleteReservation";
-import updateReservation from "@/libs/updateReservation";
-
-
 
 type CartState = {
-  restaurantItems: ReservationItem[];
-};
+  foodItems: FoodItem[];
+}
 
-
-const initialState: CartState = { restaurantItems: [] };
-
+const initialState:CartState = {
+  foodItems: [],
+}
 
 export const cartSlice = createSlice({
   name: "Cart",
-  initialState,
+  initialState: initialState,
   reducers: {
-    addReservation:  (state, action: PayloadAction<ReservationItem>) => {
-        const newReservationItem = action.payload;
-        const token = newReservationItem.token;
-        const userid = newReservationItem.user
-
-        const create = async()=>{
-            console.log(token)
-            if(newReservationItem.restaurantId && token){
-                console.log('pong')
-                await newReservation(newReservationItem.restaurantId,token,newReservationItem)
-                console.log(',,,')
-            }
-        }
-
-        console.log(userid);
-        create();
-        
+    addReservation:  (state = initialState, action: PayloadAction<FoodItem>) => {
+      action.payload.quantity = 1
+      if (!state.foodItems) {
+        state.foodItems = []
+      }
+      state.foodItems.push(action.payload)
     },
-    removeReservation:  (
-      state,
-      action: PayloadAction<{ id: string; token: string }>
-    ) => {
-        console.log(action.payload.token)
-        console.log(action.payload.id)
-        const deleteRes = async()=>{
-            const res = await deleteReservation(action.payload.token,action.payload.id);
-            window.location.reload()
-        }
-        deleteRes();
+    removeReservation:  (state, action: PayloadAction<{ fname: string }>) => { //<-- dispatch(removeReservation({fname: ชื่ออาหาร}))
+      const remainItems = state.foodItems.filter(obj =>{
+        return (
+          obj.name !== action.payload.fname
+        )
+      })
+      state.foodItems = remainItems
     },
-    editReservation: (state,action : PayloadAction<{id:string; token : string; item:object}>) =>{
-        console.log('Update')
-        console.log(action.payload.token)
-        console.log(action.payload.id)
-        const update = async()=>{
-            const res = await updateReservation(action.payload.id,action.payload.token,action.payload.item)
-            window.location.reload()
+    updateQuantity: (state, action: PayloadAction<{name: string, quantity: number}>) => {
+      const itemIndex = state.foodItems.findIndex((item) => item.name === action.payload.name)
+      if (itemIndex !== -1) {
+        const currentQuantity = state.foodItems[itemIndex].quantity
+        if (currentQuantity) {
+          if (currentQuantity + action.payload.quantity == 0) {
+            const remainItems = state.foodItems.filter(obj=>{
+              return (
+                obj.name !== action.payload.name
+              )
+            })
+            state.foodItems = remainItems
+          } else {
+          state.foodItems[itemIndex].quantity = currentQuantity + action.payload.quantity
+          }
         }
-        update()
+      }
+
     }
   },
 });
 
 
-export const { addReservation, removeReservation ,editReservation} = cartSlice.actions;
+export const { addReservation, removeReservation, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
 
 
