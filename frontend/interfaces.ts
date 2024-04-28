@@ -27,7 +27,10 @@ export interface MenuItem {
   name: string;
   img: string;
 }
-
+export interface SingleRestaurantJson {
+  success: boolean;
+  data: RestaurantItem;
+}
 export interface RestaurantJson {
   success: boolean;
   count: number;
@@ -47,19 +50,19 @@ export interface MenuItem {
   food: Array<FoodItem>;
 }
 
-  export interface FoodItem {
-    name: string
-    price: number
-    picture: string
-    quantity?: number
-    restaurant?: string
-  }
+export interface FoodItem {
+  name: string
+  price: number
+  picture: string
+  quantity?: number
+  restaurant?: string
+}
 
-  export interface FoodItemAPI { //<--- literally the same as above but different field names
-    food: string,
-    price: number,
-    image: string
-  }
+export interface FoodItemAPI { //<--- literally the same as above but different field names
+  food: string,
+  price: number,
+  image: string
+}
 
 export interface ReservationJson {
   success: boolean;
@@ -110,7 +113,7 @@ export interface OrderItem {
 }
 
 
-export interface AddressesItem{
+export interface AddressesItem {
   address: string;
   district: string;
   province: string;
@@ -118,7 +121,7 @@ export interface AddressesItem{
   region: string;
 }
 
-export interface UserAddressItem{
+export interface UserAddressItem {
   _id: string;
   name: string;
   addresses: UserAddress;
@@ -133,7 +136,7 @@ export interface UserAddress {
 }
 
 
-export interface AddressesItem{
+export interface AddressesItem {
   address: string;
   district: string;
   province: string;
@@ -141,7 +144,7 @@ export interface AddressesItem{
   region: string;
 }
 
-export interface UserAddressItem{
+export interface UserAddressItem {
   _id: string;
   name: string;
   addresses: UserAddress;
