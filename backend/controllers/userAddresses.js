@@ -13,7 +13,7 @@ exports.getAddresses = async (req, res, next) => {
         }
 
         if (query.length == 0) {
-            return res.status(404).json({ success: true, message: "System doesn't have any address (admin)" })
+            return res.status(500).json({ success: false, message: "System doesn't have any address (admin)" })
         }
 
         return res.status(200).json(query);
@@ -29,10 +29,10 @@ exports.getAddresses = async (req, res, next) => {
         }
 
         if (query === null) {
-            return res.status(404).json({ success: true, message: "User doesn't have any address" })
+            return res.status(500).json({ success: false, message: "User doesn't have any address" })
         }
 
-        return res.status(200).json(query);
+        return res.status(200).json([query]);
 
     }
 }

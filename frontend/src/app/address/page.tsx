@@ -2,21 +2,22 @@
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Button } from "@mui/material";
 import getUserAddresses from "@/libs/getUserAddresses";
 import { getServerSession } from 'next-auth';
-import { UserAddressItem } from "interfaces";
+import { UserAddress, UserAddressItem } from "interfaces";
 import AddressRow from "@/components/addressRow";
 import { useSession } from "next-auth/react";
-import AddressPage from "@/components/addressPage";
 import { useRouter } from 'next/router';
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default async function AddresssPage() {
-    
     const session = await getServerSession(authOptions)
     const token = session?.user.token
-    console.log(token)
     let addresses
     if (token) {
         addresses = await getUserAddresses(token)
+        if(!addresses){
+            <div className="text-4xl text-pink-700 w-[100%] flex flex-col items-center pt-20 space-y-10"> You don't have any address </div>
+        }
     } else {
         return (
             <div className="text-4xl text-pink-700 w-[100%] flex flex-col items-center pt-20 space-y-10"> You must log in first </div>
@@ -42,9 +43,12 @@ export default async function AddresssPage() {
                     </TableHead>
                     <TableBody>
                         {
-                            addresses.map((addresses:UserAddressItem) => (
-                                <AddressRow _id={addresses.addresses[1].address}  name={addresses.name} />
+                            addresses?
+                            (addresses.map((addresses:UserAddressItem, index: number) => (
+                                addresses.addresses.map((userAddress:UserAddress) => (
+                                     <AddressRow user={userAddress}  userId={addresses.user} index={index} token={token}/>
                                 ))
+                                ))):null
                         }
                     </TableBody>
                 </Table>

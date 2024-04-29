@@ -110,7 +110,7 @@ export interface AddressesItem {
 
 export interface UserAddressItem {
   _id: string;
-  name: string;
+  user: string;
   addresses: UserAddress[];
 }
 
@@ -133,7 +133,7 @@ export interface AddressesItem {
 
 export interface UserAddressItem {
   _id: string;
-  name: string;
+  user: string;
   addresses: UserAddress[];
 }
 

@@ -5,31 +5,34 @@ import deleteAddress from "@/libs/deleteAddress";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { useEffect, useState } from "react";
+import { UserAddress } from "interfaces";
 
-export default function AddressRow({_id, name}:{_id:string, name:string}) {
-    const [token, setToken] = useState<string | null>(null); // State to hold the token
-
-    useEffect(() => {
-        // Function to retrieve session and set token
-        const retrieveSession = async () => {
-            try {
-                const session = await getServerSession(authOptions);
-                const userToken = session?.user.token || null;
-                setToken(userToken); // Set the token in state
-            } catch (error: any) {
-                console.error("Error retrieving session:", error);
-            }
-        };
-
-        retrieveSession(); // Call the function to retrieve session
-    }, []); // Run only once on component mount
+export default function AddressRow({user, userId,index,token}:{user:UserAddress, userId:string,index:number,token:string}) {
+    // const [token, setToken] = useState<string | null>(null); // State to hold the token
+    const address =`${user.address}`
+    const district = `${user.district}`
+    const province = `${user.province}`
+    const postalcode = `${user.postalcode}`
+    // useEffect(() => {
+    //     // Function to retrieve session and set token
+    //     const retrieveSession = async () => {
+    //         try {
+    //             const session = await getServerSession(authOptions);
+    //             const userToken = session?.user.token || null;
+    //             setToken(userToken); // Set the token in state
+    //         } catch (error: any) {
+    //             console.error("Error retrieving session:", error);
+    //         }
+    //     };
+    //     retrieveSession(); // Call the function to retrieve session
+    // },[]); // Run only once on component mount
 
     const handleDelete = async () => {
         try {
             if (!token) {
                 throw new Error("User not authenticated or token unavailable.");
             }
-            await deleteAddress(token, _id);
+            const del = await deleteAddress(token, userId,index);
             console.log("Address deleted successfully");
         } catch (error: any) {
             console.error("Failed to delete address:", error.message);
@@ -38,8 +41,8 @@ export default function AddressRow({_id, name}:{_id:string, name:string}) {
 
     return (
         <TableRow>
-            <TableCell>{_id}</TableCell>
-            <TableCell align='center'>{name}</TableCell>
+            <TableCell>{address+", "+ district+", "+ province+", "+postalcode}</TableCell>
+            <TableCell align='center'>{userId}</TableCell>
             <TableCell align='right'>
                 <IconButton onClick={handleDelete}>
                     <DeleteIcon />
