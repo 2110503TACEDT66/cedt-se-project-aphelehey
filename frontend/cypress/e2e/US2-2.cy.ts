@@ -27,7 +27,7 @@ describe('US2-2', () => {
   const pos = generateRandomNumber(5)
   const reg = generateRandomString(10)
  
-  it('Sign-in', () => {
+  it('Add address', () => {
     cy.visit('http://localhost:3000/api/auth/signin')
     cy.get('#input-email-for-credentials-provider').type('Metch@gmail.com')
     cy.get('#input-password-for-credentials-provider').type('123456')
