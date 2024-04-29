@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FoodItem, OrderFoodItem, OrderItem, RestaurantItem, SingleRestaurantJson, locationItem, restaurantItem } from "interfaces";
 import styles from '@/components/reservationcart.module.css'
-import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
+import { ArrowDropUp, ArrowDropDown, Label } from '@mui/icons-material'
 import Image from "next/image";
 import { addReservation, removeReservation, updateQuantity } from "@/redux/features/cartSlice";
 import { useAppSelector } from "@/redux/store";
@@ -93,8 +93,9 @@ export default function ReservationCart() {
       })
       return foodItems
     }
-
-    if (selectedLocation&&deliveryCost) {
+    if (!selectedLocation) alert("Please select your location")
+    else if (!deliveryCost) alert("Please select correct location")
+    if (selectedLocation && deliveryCost) {
       const order: OrderItem = {
         food: reservationItems?.map((item: FoodItem) => { return item.name }),
         price: totalPrice(),
@@ -158,10 +159,25 @@ export default function ReservationCart() {
         const stringRestaurant = `${selectedRestaurant.address},${selectedRestaurant.district},${selectedRestaurant.province},${selectedRestaurant.postalcode}`;
         const stringUser = `${selectedLocation.address},${selectedLocation.district},${selectedLocation.province},${selectedLocation.postalcode}`;
         const kilometer = await calculateDistance(stringRestaurant, stringUser);
-        const distance = parseFloat(kilometer.rows[0].elements[0].distance.text);
-        let cost = distance * 4.5;
-        cost = Math.round(cost);
-        return cost;
+
+        if (kilometer) {
+          if (kilometer.rows[0].elements[0].status === "NOT_FOUND") {
+            alert("Wrong Address")
+          }
+          else {
+            const distance = parseFloat(kilometer.rows[0].elements[0].distance.text);
+            let cost = distance * 4.5;
+            cost = Math.round(cost);
+            return cost;
+          }
+        }
+        else {
+          let cost = 0;
+          if (selectedRestaurant.district === selectedLocation.district) cost = 15;
+          else if (selectedRestaurant.province === selectedLocation.province) cost = 50;
+          else cost = 100;
+          return cost;
+        }
       }
       return 0;
     };
@@ -179,7 +195,7 @@ export default function ReservationCart() {
     <div className="mt-10 pl-5 mr-5">
       <div className="flex flex-col">
         <div className="text-2xl mb-3"> Deliver To </div>
-        <FormControl>
+        <FormControl required>
           <Select labelId="location-select" value={locationId} label="location" className="w-96" onChange={handleSelectLocation}>
             {location?.map((item: locationItem) => (
               <MenuItem key={item._id} value={item._id}> {`${item.address} ${item.district} ${item.province} ${item.region} ${item.postalcode}`}
