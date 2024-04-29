@@ -11,8 +11,8 @@ exports.getOrders = async (req, res, next) => {
   } else {
     if (req.params.restaurantId) {
       console.log(req.params.restaurantId);
-      query = Order.find({
-        restaurant: req.params.restaurantId,
+      query = Order.findone({
+        user: req.user.id,
       }).populate({
         path: "restaurant",
         select: "name province tel",
