@@ -69,7 +69,12 @@ const swaggerOptions = {
             title: 'Restaurant API',
             version: '1.0.0',
             description: 'A restaurant API for the Software Engineering project'
-        }
+        },
+        servers: [
+            {
+                url: 'http://localhost:5000/api/v1'
+            }
+        ]
     },
     apis: ['./routes/*.js']
 };
