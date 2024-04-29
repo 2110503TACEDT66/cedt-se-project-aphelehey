@@ -17,9 +17,7 @@ export default async function TopMenu() {
             <TopMenuItem title='About' pageRef='/about' />
             <TopMenuItem title='Address' pageRef='/address' />
             <TopMenuItem title='Payment' pageRef='/payrecord' />
-            {
-                session ? <TopMenuItem title='Sales' pageRef='/sales' /> : null
-            }
+            {session ?  <TopMenuItem title='Sales' pageRef='/sales' /> : null}
             <div className='flex flex-row absolute right-0 h-full'>
                 <TopMenuItem title='Cart' pageRef='/cart' />
                 {
