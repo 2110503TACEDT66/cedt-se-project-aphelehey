@@ -17,7 +17,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <main className="bg-slate-100 m-5 p-5 w-[100%] flex flex-col items-center space-y-4 justify-center">
+        <main className="bg-slate-100 p-5 w-[100%] flex flex-col items-center space-y-4 justify-center">
             <div className="text-2xl font-bold">Register</div>
             <form className="flex items-center flex-col">
                         <div className="flex items-center w-1/2 my-2 w-full">

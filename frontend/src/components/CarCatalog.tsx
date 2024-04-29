@@ -10,7 +10,7 @@ export default async function RestaurantCatalog({ restaurantJson }: { restaurant
     //console.log(restaurantJsonReady);
     return (
         <>
-            Choose from one of our {restaurantJsonReady.count} restaurants
+           <div className="text-slate-600"> Choose from one of our {restaurantJsonReady.count} restaurants</div>
             <div style={{ margin: "20px", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around", alignContent: "space-around" }}>
                 {
                     restaurantJsonReady.data.map((restaurantItem: RestaurantItem) => (

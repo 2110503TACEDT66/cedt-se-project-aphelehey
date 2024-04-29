@@ -48,7 +48,7 @@ export default function Sales() {
         <main>
             <div>
                 <div className="flex flex-col w-[100%] items-center justify-center mt-5 font-bold">
-                    <div className="items-center bg-gray-200 p-5 rounded-t-lg text-xl">Search Sales Data</div>
+                    <div className="items-center bg-gray-200 p-5 rounded-t-lg text-xl ">Search Sales Data</div>
                     <div className="flex flex-row w-auto h-auto rounded-b-lg bg-white shadow-md overflow-hidden items-center justify-center p-5 bg-gray-200">
                         <div>
                             <Select
