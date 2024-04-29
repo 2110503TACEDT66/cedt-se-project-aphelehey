@@ -1,6 +1,6 @@
 import { OrderItem } from "interfaces";
 
-const URL = "http://localhost:5000";
+const URL = process.env.BACKEND_URL + ":" + process.env.BACKEND_PORT;
 
 export default async function updateOrder(orderID: string, token: string) {
   const response = await fetch(`${URL}/api/v1/orders/${orderID}`, {

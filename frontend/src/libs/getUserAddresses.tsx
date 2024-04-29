@@ -1,5 +1,5 @@
 export default async function getUserAddresses(token:string) {
-    const response = await fetch(`http://localhost:5000/api/v1/userAddresses`, {
+    const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/api/v1/userAddresses`, {
         method: "GET",
         headers: {
             authorization: `Bearer ${token}`

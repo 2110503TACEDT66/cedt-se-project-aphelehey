@@ -3,7 +3,7 @@ import { UserAddress } from "interfaces";
 export default async function createNewAddress(newAddress: UserAddress, authorizationToken?: string) {
   console.log('IN'); // Optional debugging log
 
-  const url = `http://localhost:5000/api/v1/userAddresses`;
+  const url = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/api/v1/userAddresses`;
 
   const body = JSON.stringify({ address: newAddress }); // Include address data
 

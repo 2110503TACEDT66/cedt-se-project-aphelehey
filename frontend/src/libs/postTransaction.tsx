@@ -1,6 +1,6 @@
 import { OrderFoodItem, locationItem } from "interfaces"
 
-const URL = "http://localhost:5000"
+const URL = process.env.BACKEND_URL + ":" + process.env.BACKEND_PORT
 
 export default async function postTransaction(name: string,location:locationItem,orders: OrderFoodItem[], token: string, orderID: string) {
     const body = JSON.stringify({
