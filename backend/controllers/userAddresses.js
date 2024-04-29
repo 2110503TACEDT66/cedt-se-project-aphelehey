@@ -28,7 +28,7 @@ exports.getAddresses = async (req, res, next) => {
             return res.status(500).json({ success: false, message: 'Finding UserAddress Error' });
         }
 
-        if (query.addresses.length == 0) {
+        if (query === null) {
             return res.status(404).json({ success: true, message: "User doesn't have any address" })
         }
 
