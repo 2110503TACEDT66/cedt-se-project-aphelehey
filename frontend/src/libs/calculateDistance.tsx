@@ -1,15 +1,15 @@
-export default async function calculateDistance(restaurant: string, user_address: string) {
+export default async function calculateDistance(restaurant: String, user_address: String) {
     //mock up
     try {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations=${restaurant}&origins=${user_address}&key=AIzaSyCZZU_uP2OVOJHq4azzOS-e5yCHjacDQxo`)
-        if (!response.ok) {
-            alert("Failed to get distance")
-            throw new Error("Failed to calculate distance")
-        }
-        return await response.json();
+        console.log(`https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations=${restaurant}&origins=${user_address}&key=AIzaSyCZZU_uP2OVOJHq4azzOS-e5yCHjacDQxo`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&destinations=${restaurant}&origins=${user_address}&key=AIzaSyCZZU_uP2OVOJHq4azzOS-e5yCHjacDQxo`, {
+            method: "GET",
+        });
+        const data = await response.json();
+        return data;
     }
     catch (error) {
-        alert(error);
+        console.log(error);
     }
 
 }
