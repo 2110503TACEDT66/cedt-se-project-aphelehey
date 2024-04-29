@@ -21,7 +21,7 @@ export default function ReservationCart() {
   const [locationId, setLocationId] = useState<string>()
   const [selectedLocation, setSelectedLocation] = useState<locationItem>()
   const [selectedRestaurant, setSelectedRestaurant] = useState<RestaurantItem>()
-  const [deliveryCost, setDeliveryCost] = useState<number>()
+  const [deliveryCost, setDeliveryCost] = useState<number>(0)
   const { data: session } = useSession();
   const token = session?.user.token;
   const user = session?.user._id
@@ -81,20 +81,26 @@ export default function ReservationCart() {
         if (!item.quantity) item.quantity = 1
         total += item.price * item.quantity
       })
+      if (deliveryCost) total += deliveryCost;
       return total
     }
     function getProducts(): OrderFoodItem[] {
-      return reservationItems?.map((item: FoodItem) => { return { name: item.name, price: item.price, quantity: item.quantity ? item.quantity : 1 } })
+      const foodItems = reservationItems?.map((item: FoodItem) => { return { name: item.name, price: item.price, quantity: item.quantity ? item.quantity : 1 } })
+      if (deliveryCost) foodItems.push({
+        name: "ค่าส่ง",
+        price: deliveryCost,
+        quantity: 1
+      })
+      return foodItems
     }
 
-    if (selectedLocation) {
+    if (selectedLocation&&deliveryCost) {
       const order: OrderItem = {
         food: reservationItems?.map((item: FoodItem) => { return item.name }),
         price: totalPrice(),
         payment: false,
         location: selectedLocation
       }
-
       if (token && order && restaurantID) {
         const orderID = await postOrder(order, token, restaurantID);
         console.log(orderID);
@@ -140,7 +146,6 @@ export default function ReservationCart() {
             id: fetchedAddress.data.id,
           }
           setSelectedRestaurant(resLoc)
-          alert(selectedRestaurant);
         }
       }
       fetchAddress(restaurantID)
@@ -150,8 +155,8 @@ export default function ReservationCart() {
   useEffect(() => {
     const deliveryCalculator = async (selectedRestaurant: RestaurantItem, selectedLocation: locationItem) => {
       if (selectedRestaurant && selectedLocation) {
-        const stringRestaurant = `${selectedRestaurant.address}, ${selectedRestaurant.district}, ${selectedRestaurant.province}, ${selectedRestaurant.postalcode}`;
-        const stringUser = `${selectedLocation.address}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postalcode}`;
+        const stringRestaurant = `${selectedRestaurant.address},${selectedRestaurant.district},${selectedRestaurant.province},${selectedRestaurant.postalcode}`;
+        const stringUser = `${selectedLocation.address},${selectedLocation.district},${selectedLocation.province},${selectedLocation.postalcode}`;
         const kilometer = await calculateDistance(stringRestaurant, stringUser);
         const distance = parseFloat(kilometer.rows[0].elements[0].distance.text);
         let cost = distance * 4.5;
@@ -167,7 +172,6 @@ export default function ReservationCart() {
         setDeliveryCost(cost);
       }
     };
-
     calculateDeliveryCost();
   }, [selectedLocation]);
 
@@ -185,7 +189,7 @@ export default function ReservationCart() {
         </FormControl>
       </div>
       {reservationItems?.length === 0 || !reservationItems ? (
-        <><p>No Reservation</p>
+        <><p className="text-white">No Reservation</p>
         </>
       ) : (
         reservationItems?.map((reservationItem: FoodItem) => (

@@ -53,7 +53,7 @@ const AddressForm: React.FC =  () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ backgroundColor: 'white' }}>
+    <form className=' p-10' onSubmit={handleSubmit(onSubmit)} style={{ backgroundColor: 'white' }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField

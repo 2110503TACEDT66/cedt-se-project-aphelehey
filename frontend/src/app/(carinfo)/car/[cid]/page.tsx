@@ -21,10 +21,10 @@ export default function MenuPage() {
 
     return (
         <>
-            <div className="text-3xl ml-10 mt-3">
+            <div className="text-3xl p-2 ml-0 mt-0 text-white bg-slate-500">
                Menu Book ({menus?.length} item(s))
             </div>
-            <div style={{ margin: "20px", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around", alignContent: "space-around" }}>
+            <div className="bg-slate-100 p-10 " style={{ margin: "0px", display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around", alignContent: "space-around" }}>
                 {
                     menus?.map((item:FoodItemAPI) => (
                         <FoodCard food={item.food} price={item.price} image={item.image}/>
