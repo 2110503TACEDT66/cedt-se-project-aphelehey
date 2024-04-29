@@ -42,8 +42,8 @@ export default async function AddresssPage() {
                     </TableHead>
                     <TableBody>
                         {
-                            addresses.map((address:UserAddressItem) => (
-                                <AddressRow _id={address.addresses.address}  name={address.name} />
+                            addresses.map((addresses:UserAddressItem) => (
+                                <AddressRow _id={addresses.addresses[1].address}  name={addresses.name} />
                                 ))
                         }
                     </TableBody>

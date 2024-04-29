@@ -111,7 +111,7 @@ export interface AddressesItem {
 export interface UserAddressItem {
   _id: string;
   name: string;
-  addresses: UserAddress;
+  addresses: UserAddress[];
 }
 
 export interface UserAddress {
@@ -134,7 +134,7 @@ export interface AddressesItem {
 export interface UserAddressItem {
   _id: string;
   name: string;
-  addresses: UserAddress;
+  addresses: UserAddress[];
 }
 
 export interface UserAddress {

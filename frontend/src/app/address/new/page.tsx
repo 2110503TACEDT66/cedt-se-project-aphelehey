@@ -94,7 +94,7 @@ const AddressForm: React.FC =  () => {
         <Grid item xs={12}>
           <TextField
             {...register('region', { required: true })}
-            error={!!errors.errors}
+            error={!!errors.region}
             helperText={errors.region?.message}
             label="Region"
             fullWidth
