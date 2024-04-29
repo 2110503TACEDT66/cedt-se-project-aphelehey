@@ -21,7 +21,7 @@ export default function ReservationCart() {
   const [locationId, setLocationId] = useState<string>()
   const [selectedLocation, setSelectedLocation] = useState<locationItem>()
   const [selectedRestaurant, setSelectedRestaurant] = useState<RestaurantItem>()
-  const [deliveryCost, setDeliveryCost] = useState<number>()
+  const [deliveryCost, setDeliveryCost] = useState<number>(0)
   const { data: session } = useSession();
   const token = session?.user.token;
   const user = session?.user._id
@@ -82,8 +82,6 @@ export default function ReservationCart() {
         total += item.price * item.quantity
       })
       if (deliveryCost) total += deliveryCost;
-      console.log(total)
-      console.log(deliveryCost)
       return total
     }
     function getProducts(): OrderFoodItem[] {
@@ -96,14 +94,13 @@ export default function ReservationCart() {
       return foodItems
     }
 
-    if (selectedLocation) {
+    if (selectedLocation&&deliveryCost) {
       const order: OrderItem = {
         food: reservationItems?.map((item: FoodItem) => { return item.name }),
         price: totalPrice(),
         payment: false,
         location: selectedLocation
       }
-
       if (token && order && restaurantID) {
         const orderID = await postOrder(order, token, restaurantID);
         console.log(orderID);

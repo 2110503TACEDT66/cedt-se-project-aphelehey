@@ -100,19 +100,6 @@ export interface locationItem {
   region: string;
   _id: string;
 }
-
-export interface OrderItem {
-  _id?: string;
-  food: string[];
-  price: number;
-  payment: boolean;
-  location: locationItem
-  restaurant?: string
-  token?: string
-  user?: string
-}
-
-
 export interface AddressesItem {
   address: string;
   district: string;
