@@ -17,7 +17,7 @@ export default async function MenuPanel({ menuJson }: { menuJson: MenuJson }) {
 
                                 {menuItem.food.map((foodItem: FoodItem) => (
                                     <div className="w-[100%] sm:w-[50%] md:w-[30%] lg:w-[25%] p-2 sm:p-4 md:p-4 lg:pd-8" key={menuItem._id}>
-                                        <Productcard key={foodItem.name} restaurantName={foodItem.name} imgSrc={foodItem.img} />
+                                        <Productcard key={foodItem.name} restaurantName={foodItem.name} imgSrc={foodItem.picture} />
                                     </div>
                                 ))}
                             </div>

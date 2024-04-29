@@ -179,7 +179,7 @@ export default function ReservationCart() {
     <div className="mt-10 pl-5 mr-5">
       <div className="flex flex-col">
         <div className="text-2xl mb-3"> Deliver To </div>
-        <FormControl>
+        <FormControl required>
           <Select labelId="location-select" value={locationId} label="location" className="w-96" onChange={handleSelectLocation}>
             {location?.map((item: locationItem) => (
               <MenuItem key={item._id} value={item._id}> {`${item.address} ${item.district} ${item.province} ${item.region} ${item.postalcode}`}
