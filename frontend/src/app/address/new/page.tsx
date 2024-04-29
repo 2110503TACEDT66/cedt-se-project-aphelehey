@@ -56,7 +56,7 @@ const AddressForm: React.FC =  () => {
     <form className=' p-10' onSubmit={handleSubmit(onSubmit)} style={{ backgroundColor: 'white' }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField
+          <TextField data-testid="add"
             {...register('address', { required: true })}
             error={!!errors.address}
             helperText={errors.address?.message}
@@ -65,7 +65,7 @@ const AddressForm: React.FC =  () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
+          <TextField data-testid="dis"
             {...register('district', { required: true })}
             error={!!errors.district}
             helperText={errors.district?.message}
@@ -74,7 +74,7 @@ const AddressForm: React.FC =  () => {
           />
         </Grid>
         <Grid item xs={3}>
-          <TextField
+          <TextField data-testid="pro"
             {...register('province', { required: true })}
             error={!!errors.province}
             helperText={errors.province?.message}
@@ -83,7 +83,7 @@ const AddressForm: React.FC =  () => {
           />
         </Grid>
         <Grid item xs={3}>
-          <TextField
+          <TextField data-testid="pos"
             {...register('postalcode', { required: true })}
             error={!!errors.postalcode}
             helperText={errors.postalcode?.message}
@@ -92,7 +92,7 @@ const AddressForm: React.FC =  () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <TextField data-testid="reg"
             {...register('region', { required: true })}
             error={!!errors.region}
             helperText={errors.region?.message}
