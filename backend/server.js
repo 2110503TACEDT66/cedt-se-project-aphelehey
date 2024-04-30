@@ -9,6 +9,9 @@ const rateLimit = require('express-rate-limit')
 const hpp = require('hpp');
 const cors = require('cors')
 
+//swagger
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
 
 dotenv.config({ path: './config/config.env' });
 
@@ -33,6 +36,26 @@ const limiter = rateLimit({
 
 const app = express();
 
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Library API",
+            version: "1.0.0",
+            description: "A simple Express VacQ API",
+        },
+        servers: [
+            {
+                url: "http://localhost:5000/api/v1",
+            },
+        ],
+    },
+    apis: ["./routes/*.js"],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(mongoSanitize());
@@ -46,9 +69,9 @@ app.use('/api/v1/auth', auth);
 app.use('/api/v1/reservations', reservations);
 app.use('/api/v1/menus', menus);
 app.use('/api/v1/paymentRecords', paymentRecords);
-app.use('/api/v1/transactions',transaction);
+app.use('/api/v1/transactions', transaction);
 app.use('/api/v1/userAddresses', userAddresses);
-app.use('/api/v1/orders',orders );
+app.use('/api/v1/orders', orders);
 
 
 
