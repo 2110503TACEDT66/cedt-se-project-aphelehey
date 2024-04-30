@@ -21,10 +21,7 @@ exports.getMenus = async (req, res, next) => {
 
 exports.getMenu = async (req, res, next) => {
     try {
-        const menu = await Menu.findById(req.params.id).populate({
-            path: 'restaurant',
-            select: 'name description tel'
-        })
+        const menu = await Menu.findById(req.params.id)
 
         if (!menu) {
             return res.status(404).json({ success: false, message: `No reservation with the id of ${req.params.id}` })
@@ -46,18 +43,6 @@ exports.addMenu = async (req, res, next) => {
 
 
     try {
-        //console.log( req.body.restaurant);
-        req.body.restaurant = req.params.restaurantId;
-
-        const restaurant = await Restaurant.findById(req.params.restaurantId);
-
-        if (!restaurant) {
-            return res.status(404).json({ success: false, message: `No restaurant with the id of ${req.params.restaurantId}` });
-        }
-        console.log(req.body)
-
-        req.body.user = req.user.id;
-
         const menu = await Menu.create(req.body);
         res.status(201).json({
             success: true,

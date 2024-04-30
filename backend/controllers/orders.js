@@ -135,8 +135,9 @@ exports.updateOrder = async (req, res, next) => {
     order = await Order.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
     });
-
-    res.status(200).json({ success: true, data: order });
+    let newOrder = await Order.findById(req.params.id);
+    console.log(newOrder)
+    res.status(200).json({ success: true, data: newOrder });
   } catch (error) {
     console.log(error);
     res
