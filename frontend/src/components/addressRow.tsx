@@ -37,6 +37,7 @@ export default function AddressRow({user, userId,index,token}:{user:UserAddress,
         } catch (error: any) {
             console.error("Failed to delete address:", error.message);
         }
+        window.location.assign("/address");
     };
 
     return (
