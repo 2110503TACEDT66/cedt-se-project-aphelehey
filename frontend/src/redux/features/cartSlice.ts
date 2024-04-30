@@ -61,8 +61,9 @@ export const cartSlice = createSlice({
           }
         }
       }
-
-    }
+  },
+    reset: (state, action) => {
+      return state = initialState;
   },
 });
 
