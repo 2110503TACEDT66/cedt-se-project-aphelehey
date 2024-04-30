@@ -40,9 +40,9 @@ const swaggerOptions = {
     swaggerDefinition: {
         openapi: "3.0.0",
         info: {
-            title: "Library API",
+            title: "Restaurant API",
             version: "1.0.0",
-            description: "Aphelehey's Restaurant API",
+            description: "Aphelehey's Restaurant API used in the Software Engineering Project",
         },
         servers: [
             {
