@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
   // Test fetching all restaurants
   describe('GET /api/v1/paymentRecords', () => {
     let token;
-
+    let _id;
     it('User login', async () => {
 
         const user = {
@@ -21,6 +21,7 @@ const mongoose = require('mongoose')
         expect(response.body.success).toBe(true);
 
         token = response.body.token;
+        _id = response.body._id;
         console.log(token);
     });
   
@@ -37,7 +38,7 @@ const mongoose = require('mongoose')
         // Optional: Verify specific fields or structure of each payment record
         paymentRecords.forEach(record => {
             expect(record).toHaveProperty('_id');
-            expect(record.user).toBe('662e63654770501c1f14edfb')
+            expect(record.user).toBe(_id);
             expect(record).toHaveProperty('user');
             expect(record).toHaveProperty('food');
             expect(record).toHaveProperty('price');
@@ -65,6 +66,7 @@ const mongoose = require('mongoose')
         expect(response.body.success).toBe(true);
 
         token = response.body.token;
+        _id = response.body._id;
         console.log(token);
     });
   
@@ -74,7 +76,6 @@ const mongoose = require('mongoose')
         .get('/api/v1/paymentRecords')
         .set('Authorization', `Bearer ${token}`);;
         expect(response.status).toBe(200);
-        console.log(response.body)
 
         const paymentRecords = response.body;
 

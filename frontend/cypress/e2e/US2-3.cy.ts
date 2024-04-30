@@ -17,11 +17,11 @@ describe('US2-2', () => {
         cy.get('[href="/car/65e44c37cb8aa54383faa2d2"]').click()
     
         cy.wait(waitTime/2)
-        cy.get('.object-cover').first().click()
+        cy.get('.object-cover').eq(0).click()
         cy.get('.MuiButtonBase-root').click()
 
         cy.wait(waitTime)
-        cy.contains('body','king').should('be.visible');
+        cy.contains('body','Bibimbap').should('be.visible');
 
     })
 })

@@ -39,31 +39,31 @@ export default  function createNewAddressPage() {
             <form className="flex items-center flex-col">
                         <div className="flex items-center w-1/2 my-2 w-full">
                             <label className="w-auto block text-gray-700 pr-4" htmlFor="address">Address</label>
-                            <input type='text' required id="address" name="address" placeholder="your address"
+                            <input data-testid='add' type='text' required id="address" name="address" placeholder="your address"
                                 className="bg-white border-2 border-gray-200 rounded w-full p-2
                                 text-gray-700 focus:outline-none focus:border-blue-400" onChange={(e)=>{setaddress(e.target.value)}}></input>
                         </div>
                         <div className="flex items-center w-1/2 my-2 w-full">
                             <label className="w-auto block text-gray-700 pr-4" htmlFor="district">District</label>
-                            <input type='text' required id="district" name="district" placeholder="district"
+                            <input data-testid='dis' type='text' required id="district" name="district" placeholder="district"
                                 className="bg-white border-2 border-gray-200 rounded w-full p-2
                                 text-gray-700 focus:outline-none focus:border-blue-400" onChange={(e)=>{setdistrict(e.target.value)}}></input>
                         </div>
                         <div className="flex items-center w-1/2 my-2 w-full">
                             <label className="w-auto block text-gray-700 pr-4" htmlFor="province">Province</label>
-                            <input type='text' required id="province" name="province" placeholder="province"
+                            <input data-testid='pro' type='text' required id="province" name="province" placeholder="province"
                                 className="bg-white border-2 border-gray-200 rounded w-full p-2
                                 text-gray-700 focus:outline-none focus:border-blue-400" onChange={(e)=>{setprovince(e.target.value)}}></input>
                         </div>
                         <div className="flex items-center w-1/2 my-2 w-full">
                             <label className="w-auto block text-gray-700 pr-4" htmlFor="postalcode">Postalcode</label>
-                            <input type='text' required id="postalcode" name="postalcode" placeholder="xxxxx"
+                            <input data-testid='pos' type='text' required id="postalcode" name="postalcode" placeholder="xxxxx"
                                 className="bg-white border-2 border-gray-200 rounded w-full p-2
                                 text-gray-700 focus:outline-none focus:border-blue-400" onChange={(e)=>{setpostalcode(e.target.value)}}></input>
                         </div>
                         <div className="flex items-center w-1/2 my-2 w-full">
                             <label className="w-auto block text-gray-700 pr-4" htmlFor="region">Region</label>
-                            <input type='text' required id="region" name="region" placeholder="region"
+                            <input data-testid='reg' type='text' required id="region" name="region" placeholder="region"
                                 className="bg-white border-2 border-gray-200 rounded w-full p-2
                                 text-gray-700 focus:outline-none focus:border-blue-400" onChange={(e)=>{setregion(e.target.value)}}></input>
                         </div>
