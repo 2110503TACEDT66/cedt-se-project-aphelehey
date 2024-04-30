@@ -137,7 +137,7 @@
 *                   region:
 *                     type: string
 *     responses:
-*       '201':
+*       '200':
 *         description: The created order
 *         content:
 *           application/json:
@@ -329,7 +329,7 @@
 *                   region:
 *                     type: string
 *     responses:
-*       '201':
+*       '200':
 *         description: Change order
 *         content:
 *           application/json:

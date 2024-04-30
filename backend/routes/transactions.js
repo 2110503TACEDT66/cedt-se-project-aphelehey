@@ -61,7 +61,7 @@
  *               - user
  *               - products
  *     responses:
- *       201:
+ *       200:
  *         description: Transaction created successfully
  *         content:
  *           application/json:
