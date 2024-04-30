@@ -61,16 +61,15 @@ export const cartSlice = createSlice({
           }
         }
       }
-
     },
     reset: (state, action) => {
-      return state = initialState;
+      state = initialState
     }
   },
 });
 
 
-export const { addReservation, removeReservation, updateQuantity } = cartSlice.actions;
+export const { addReservation, removeReservation, updateQuantity, reset} = cartSlice.actions;
 export default cartSlice.reducer;
 
 
