@@ -22,7 +22,7 @@ export default async function Payment() {
 
     return (
     <main>
-        <div className="text-white text-4xl my-10 mx-20">
+        <div className="text-4xl my-10 mx-20">
             Payment Records
         </div>
         <div className='w-[100%] flex flex-col items-center'>
@@ -38,7 +38,7 @@ export default async function Payment() {
                     <TableBody>
                         {
                             payments.map((payment:paymentItem) => (
-                            <PaymentRecordRow _id={payment._id} createdAt={payment.createdAt} price={payment.price} name={payment.restaurant.name}/>
+                            <PaymentRecordRow _id={payment._id} createdAt={payment.createdAt} price={payment.price} foods={payment.food}/>
                             ))
                         }
                     </TableBody>

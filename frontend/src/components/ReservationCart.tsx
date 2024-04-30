@@ -210,7 +210,7 @@ console.log(location)
       ) : (
         reservationItems?.map((reservationItem: FoodItem) => (
           <div key={reservationItem.name} className="flex my-10">
-            <Image src={`/img/foods/${reservationItem.picture}.jpg`} alt="Image Placement Here" width={200} height={200} className={styles.image}></Image>
+            <Image src={reservationItem.picture} alt="Image Placement Here" width={200} height={200} className={styles.image}></Image>
             <div
               className="border-solid border-2 border-slate-300 w-[100%] pr-5">
               <div className="flex h-full">
