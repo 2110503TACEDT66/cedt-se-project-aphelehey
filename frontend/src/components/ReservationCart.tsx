@@ -120,7 +120,7 @@ export default function ReservationCart() {
       if (token) {
         const fetchedAddress = await getUserAddresses(token)
         if (fetchedAddress) {
-          setLocation(fetchedAddress.addresses)
+          setLocation(fetchedAddress[0].addresses)
         }
       }
     }
@@ -190,7 +190,7 @@ export default function ReservationCart() {
     };
     calculateDeliveryCost();
   }, [selectedLocation]);
-
+console.log(location)
   return (
     <div className="mt-10 pl-5 mr-5">
       <div className="flex flex-col">

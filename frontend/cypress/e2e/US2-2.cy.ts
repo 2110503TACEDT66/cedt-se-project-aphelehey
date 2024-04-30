@@ -43,7 +43,7 @@ describe('US2-2', () => {
     cy.get('[data-testid="pro"]').type(pro)
     cy.get('[data-testid="pos"]').type(pos)
     cy.get('[data-testid="reg"]').type(reg)
-    cy.get('.MuiButtonBase-root').click()
+    cy.get('.bg-blue-500').click()
 
     cy.visit('http://localhost:3000/address')
     cy.wait(waitTime)
