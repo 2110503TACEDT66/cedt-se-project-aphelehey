@@ -27,7 +27,7 @@ export default function FoodCard(item:FoodItemAPI) {
         <div className='bg-white w-[45rem] h-[150px] rounded-lg shadow-lg flex flex-row hover:shadow-2xl cursor-pointer' onClick={()=>{handleAddToMenu()}}>
             <div className="w-[40%] relative rounded-lg">
                 <div style={{display: "flex", justifyContent: "center"}}>
-                    <Image src='https://drive.google.com/thumbnail?id=1bQF5sS0GVE_sJVESqKWJcd_GAcIaNB66' alt="Food Image" fill={true} className='object-cover rounded-t-lg'/>
+                    <Image src={item.image} alt="Food Image" fill={true} className='object-cover rounded-t-lg'/>
                 </div>
             </div>
             <div className="w-[60%] flex flex-row items-center">
