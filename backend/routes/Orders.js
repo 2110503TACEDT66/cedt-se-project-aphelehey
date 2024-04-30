@@ -9,40 +9,6 @@
  */
 
 /**
-* @swagger
-* components:
-*   schemas:
-*     OrderItem:
-*       type: object
-*       properties:
-*         _id:
-*           type: string
-*           description: The unique identifier for the order item
-*         food:
-*           type: array
-*           items:
-*             type: string
-*           description: The list of food items in the order
-*         price:
-*           type: number
-*           description: The total price of the order item
-*         payment:
-*           type: boolean
-*           description: Indicates whether payment is made for the order item
-*         location:
-*           $ref: '#/components/schemas/LocationItem'
-*         restaurant:
-*           type: string
-*           description: The name of the restaurant
-*         token:
-*           type: string
-*           description: Authentication token
-*         user:
-*           type: string
-*           description: User identifier
-*/
-
-/**
   * @swagger
   * tags:
   *   name: Orders
