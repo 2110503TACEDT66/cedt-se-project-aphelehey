@@ -62,11 +62,11 @@ module.exports = router;
    *           type: string         
    * 
    */
-  
+
   /**
    * @swagger
    * tags:
-   *   name: Order
+   *   name: PaymentRecord
    *   description: The system's paymentRecord managing API      
    */
 
@@ -74,8 +74,10 @@ module.exports = router;
    * @swagger
    * /paymentRecords:
    *   get:
+   *     security:
+   *       - bearerAuth: []
    *     summary: return all payment records of a user, or of all users if logged in as admin
-   *     tags: [Order]
+   *     tags: [PaymentRecord]
    *     responses: 
    *       200:
    *         description: Successfully retrieved payment records
@@ -88,8 +90,10 @@ module.exports = router;
    *       500:
    *         description: Cannot find paymentRecord
    *   put:
+   *     security:
+   *       - bearerAuth: []
    *     summary: update payment status
-   *     tags: [Order]
+   *     tags: [PaymentRecord]
    *     requestBody:
    *       required: true
    *       content:

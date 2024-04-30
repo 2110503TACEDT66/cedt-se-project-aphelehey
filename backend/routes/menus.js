@@ -26,7 +26,7 @@ const { getMenus, getMenu, addMenu, updateMenu, deleteMenu } = require('../contr
  *     summary: Get all menu
  *     tags: [Menus]
  *     responses:
- *       201:
+ *       200:
  *         description: Fetch menu successfully
  *         content:
  *           application/json:
