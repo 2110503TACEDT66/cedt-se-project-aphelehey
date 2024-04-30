@@ -4,7 +4,7 @@ const { app,server } = require('../server'); // Assuming your app is exported fr
   // Test fetching all restaurants
   describe.only('POST /api/v1/transactions/checkout', () => {
     let token;
-    
+    let _id;
 
     it('User login', async () => {
 
@@ -21,6 +21,7 @@ const { app,server } = require('../server'); // Assuming your app is exported fr
         expect(response.body.success).toBe(true);
 
         token = response.body.token;
+        _id = response.body._id;
         console.log(token);
     });
   
