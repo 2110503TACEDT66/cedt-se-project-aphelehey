@@ -120,7 +120,7 @@ export default function ReservationCart() {
       if (token) {
         const fetchedAddress = await getUserAddresses(token)
         if (fetchedAddress) {
-          setLocation(fetchedAddress.addresses)
+          setLocation(fetchedAddress[0].addresses)
         }
       }
     }
@@ -190,7 +190,7 @@ export default function ReservationCart() {
     };
     calculateDeliveryCost();
   }, [selectedLocation]);
-
+console.log(location)
   return (
     <div className="mt-10 pl-5 mr-5">
       <div className="flex flex-col">
@@ -210,7 +210,7 @@ export default function ReservationCart() {
       ) : (
         reservationItems?.map((reservationItem: FoodItem) => (
           <div key={reservationItem.name} className="flex my-10">
-            <Image src={`/img/foods/${reservationItem.picture}.jpg`} alt="Image Placement Here" width={200} height={200} className={styles.image}></Image>
+            <Image src={reservationItem.picture} alt="Image Placement Here" width={200} height={200} className={styles.image}></Image>
             <div
               className="border-solid border-2 border-slate-300 w-[100%] pr-5">
               <div className="flex h-full">
