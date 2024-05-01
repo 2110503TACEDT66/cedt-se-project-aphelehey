@@ -3,7 +3,7 @@ import { ReservationItem } from "interfaces";
 export default async function updateReservation(id: string,token: string, reservation: object) {
   try {
     console.log(JSON.stringify(reservation));
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/reservations/${id}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/api/v1/reservations/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json", // Specify content type as JSON

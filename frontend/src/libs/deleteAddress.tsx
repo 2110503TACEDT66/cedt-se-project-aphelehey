@@ -3,7 +3,7 @@ export default async function deleteAddress(token: string, userId: string,index:
         user:userId,
         index:index
     })
-    const response = await fetch(`http://localhost:5000/api/v1/userAddresses`, {
+    const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/api/v1/userAddresses`, {
        
         method: "DELETE",
         headers: {
