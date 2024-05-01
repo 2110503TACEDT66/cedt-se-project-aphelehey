@@ -1,8 +1,14 @@
-import { UserAddress } from "interfaces"
-export default async function createNewAddress(useraddress:UserAddress,token:string) {
+import { UserAddress } from "interfaces";
 
-  
-  const response = await fetch('http://localhost:5000/api/v1/userAddresses', {
+export default async function createNewAddress(newAddress: UserAddress, authorizationToken?: string) {
+  console.log('IN'); // Optional debugging log
+
+  const url = `${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/api/v1/userAddresses`;
+
+  const body = JSON.stringify({ address: newAddress }); // Include address data
+
+  try {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",

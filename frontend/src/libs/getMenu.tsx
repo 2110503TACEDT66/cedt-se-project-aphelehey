@@ -1,6 +1,6 @@
 export default async function getMenu() {
 
-    const URL = 'http://localhost:5000'
+    const URL = process.env.BACKEND_URL + ":" + process.env.BACKEND_PORT
 
     const response = await fetch(`${URL}/api/v1/menus/`)
 

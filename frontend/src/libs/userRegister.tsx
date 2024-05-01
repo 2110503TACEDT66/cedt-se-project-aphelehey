@@ -1,7 +1,7 @@
 export default async function userRegister(username: string, tel: string, userEmail: string, userPassword: string) {
 
     console.log(process.env.BACKEND_URL)
-    const response = await fetch('http://localhost:5000/api/v1/auth/register', {
+    const response = await fetch(`${process.env.BACKEND_URL}:${process.env.BACKEND_PORT}/api/v1/auth/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

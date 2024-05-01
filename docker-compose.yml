@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+    frontend:
+        build: ./frontend
+        container_name: frontend
+        ports:
+            - "3000:3000"
+        depends_on:
+            - backend
+        environment:
+            - NEXTAUTH_URL=http://localhost:3000
+            - NEXTAUTH_SECRET=KpKd6/qA6ZPlDptoWzyKNPPj8VWk2XMQg1xPB6WD77Y=
+            - MONGO_URI=mongodb+srv://6633267521:1234@restaurant.gaskthr.mongodb.net/?retryWrites=true&w=majority
+            - FRONTEND_URL=http://localhost:3000
+            - BACKEND_URL=http://backend
+            - BACKEND_PORT=5000
+        
+
+    
+    backend:
+        build: ./backend
+        container_name: backend
+        ports:
+            - "5000:5000"
+        expose:
+            - "5000"
+        environment:
+          - PORT=5000
+          - NODE_ENV=development
+          - MONGO_URI=mongodb+srv://6633267521:1234@restaurant.gaskthr.mongodb.net/Restaurant?retryWrites=true&w=majority
+          - JWT_SECRET=ijojwcd,2!wdjwl
+          - JWT_EXPIRE=365d
+          - JWT_COOKIE_EXPIRE=365
+          - AUTH_EMAIL=test@gmail.com
+          - STRIPE_SECRET_KEY=sk_test_0QcpU1z0LTkqnbM2xwSgkV9500o3nNRTSO
