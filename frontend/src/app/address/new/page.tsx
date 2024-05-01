@@ -8,29 +8,33 @@ import { useSession } from "next-auth/react";
 
 export default  function createNewAddressPage() {
     
-    const [address, setaddress] = useState('');
-    const [district, setdistrict] = useState('');
-    const [province, setprovince] = useState('');
-    const [postalcode, setpostalcode] = useState('');
-    const [region, setregion] = useState('');
+    const [address, setaddress] = useState();
+    const [district, setdistrict] = useState();
+    const [province, setprovince] = useState();
+    const [postalcode, setpostalcode] = useState();
+    const [region, setregion] = useState();
     const { data: session } = useSession();
     const token = session?.user.token;
 
     const handleRegister = async () => {
 
-      const userAddress = {
-         // Create a nested object for address details
-          address,
-          district,
-          province,
-          postalcode,
-          region,
-        
-      };
+        if (address && district && province && postalcode && region) {
+            const userAddress = {
+               // Create a nested object for address details
+                address,
+                district,
+                province,
+                postalcode,
+                region,
+            
+            };
+            await createNewAddress(userAddress,token); // Pass the userAddress object
+            alert("Create Complete");
+        } else {
+            alert("Please include all the fields");
+        }
   
-      await createNewAddress(userAddress,token); // Pass the userAddress object
   
-      alert("Create Complete");
     }
 
     return (
